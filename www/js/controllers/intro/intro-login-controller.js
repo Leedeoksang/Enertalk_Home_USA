@@ -11,14 +11,14 @@ angular.module('enertalkHomeUSA.controllers')
 			var credentials,
 				setting = Util.localStorage.getObject('setting');
 
-			if (setting.enableAutoLogin) {
-				credentials = Util.localStorage.getObject('loginData');
-				// auto login
-				if (credentials.id && credentials.password) {
-					$scope.credentials = credentials;
-					$scope.login();
-				}
-			}
+			// if (setting.enableAutoLogin) {
+			// 	credentials = Util.localStorage.getObject('loginData');
+			// 	// auto login
+			// 	if (credentials.id && credentials.password) {
+			// 		$scope.credentials = credentials;
+			// 		$scope.login();
+			// 	}
+			// }
 		}
 
 		$scope.login = function () {

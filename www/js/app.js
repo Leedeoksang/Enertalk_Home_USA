@@ -61,7 +61,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
           url: '/myenergy',
           views: {
               'MyenergyContent': {
-                  templateUrl: 'templates/main/myenergy.html',
+                  templateUrl: 'templates/main/myenergy/myenergy.html',
                   controller: 'MainMyenergyCtrl'
               }
           }
@@ -71,7 +71,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
           url: '/kwh-usage',
           views: {
               'MyenergyContent': {
-                  templateUrl: 'templates/main/kwh-usage.html',
+                  templateUrl: 'templates/main/myenergy/kwh-usage.html',
                   controller: 'KwhUsageCtrl'
               }
           }
@@ -81,7 +81,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
           url: '/usage-trends',
           views: {
               'MyenergyContent': {
-                  templateUrl: 'templates/main/usage-trends.html',
+                  templateUrl: 'templates/main/myenergy/usage-trends.html',
                   controller: 'UsageTrendsCtrl'
               }
           }
@@ -91,7 +91,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
           url: '/energy-calendar',
           views: {
               'MyenergyContent': {
-                  templateUrl: 'templates/main/energy-calendar.html',
+                  templateUrl: 'templates/main/myenergy/energy-calendar.html',
                   controller: 'EnergyCalendarCtrl'
               }
           }
@@ -101,7 +101,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/realtime-usage',
         views: {
           'MyenergyContent': {
-            templateUrl: 'templates/main/realtime-usage.html',
+            templateUrl: 'templates/main/myenergy/realtime-usage.html',
             controller: 'RealtimeUsageCtrl'
           }
         }
@@ -111,7 +111,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/standby-power',
         views: {
           'MyenergyContent': {
-            templateUrl: 'templates/main/standby-power.html',
+            templateUrl: 'templates/main/myenergy/standby-power.html',
             controller: 'StandbyPowerCtrl'
           }
         }
@@ -121,7 +121,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/bill-estimator',
         views: {
           'MyenergyContent': {
-            templateUrl: 'templates/main/bill-estimator.html',
+            templateUrl: 'templates/main/myenergy/bill-estimator.html',
             controller: 'BillEstimatorCtrl'
           }
         }
@@ -131,7 +131,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/myhome-diet',
         views: {
           'MyenergyContent': {
-            templateUrl: 'templates/main/myhome-diet.html',
+            templateUrl: 'templates/main/myenergy/myhome-diet.html',
             controller: 'MyhomeDietCtrl'
           }
         }
@@ -144,7 +144,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
           url: '/community',
           views: {
               'CommunityContent': {
-                  templateUrl: 'templates/main/community.html',
+                  templateUrl: 'templates/main/community/community.html',
                   controller: 'MainCommunityCtrl'
               }
           }
@@ -155,7 +155,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
           url: '/compete',
           views: {
               'CommunityContent': {
-                  templateUrl: 'templates/main/compete.html',
+                  templateUrl: 'templates/main/community/compete.html',
                   controller: 'CommCompeteCtrl'
               }
           }
@@ -165,7 +165,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
             url: '/compare',
             views: {
                 'CommunityContent': {
-                    templateUrl: 'templates/main/compare.html',
+                    templateUrl: 'templates/main/community/compare.html',
                     controller: 'CommCompareCtrl'  
                 }
             }
@@ -175,7 +175,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/edit-intro',
         views: {
             'CommunityContent': {
-                templateUrl: 'templates/main/compare-edit-intro.html',
+                templateUrl: 'templates/main/community/compare-edit-intro.html',
                 controller: 'CommCompareEditCtrl'
             }
         }
@@ -185,7 +185,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/edit-size',
         views: {
             'CommunityContent': {
-                templateUrl: 'templates/main/compare-edit-size.html',
+                templateUrl: 'templates/main/community/compare-edit-size.html',
                 controller: 'CommCompareEditCtrl'
             }
         }
@@ -195,7 +195,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/edit-rooms',
         views: {
             'CommunityContent': {
-                templateUrl: 'templates/main/compare-edit-rooms.html',
+                templateUrl: 'templates/main/community/compare-edit-rooms.html',
                 controller: 'CommCompareEditCtrl'
             }
         }
@@ -205,7 +205,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/edit-features',
         views: {
             'CommunityContent': {
-                templateUrl: 'templates/main/compare-edit-features.html',
+                templateUrl: 'templates/main/community/compare-edit-features.html',
                 controller: 'CommCompareEditCtrl'
             }
         }
@@ -215,7 +215,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/edit-family',
         views: {
             'CommunityContent': {
-                templateUrl: 'templates/main/compare-edit-family.html',
+                templateUrl: 'templates/main/community/compare-edit-family.html',
                 controller: 'CommCompareEditCtrl'
             }
         }
@@ -225,7 +225,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
             url: '/forum',
             views: {
                 'CommunityContent': {
-                    templateUrl: 'templates/main/forum.html',
+                    templateUrl: 'templates/main/community/forum.html',
                     controller: 'CommForumCtrl'
                 }
             }
@@ -235,7 +235,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
             url: '/donate',
             views: {
                 'CommunityContent': {
-                    templateUrl: 'templates/main/donate.html',
+                    templateUrl: 'templates/main/community/donate.html',
                     controller: 'CommDonateCtrl'
                 }
             }
@@ -245,7 +245,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
             url: '/home-dr',
             views: {
                 'CommunityContent': {
-                    templateUrl: 'templates/main/home-dr.html',
+                    templateUrl: 'templates/main/community/home-dr.html',
                     controller: 'CommDonateCtrl'
                 }
             }
@@ -255,7 +255,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
             url: '/groups',
             views:{
                 'CommunityContent': {
-                    templateUrl: 'templates/main/compete-groups.html',
+                    templateUrl: 'templates/main/community/compete-groups.html',
                     controller: 'CommCompeteCtrl'
                 }
             }
@@ -266,7 +266,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
             url: '/mygroup',
             views:{
                 'CommunityContent': {
-                    templateUrl: 'templates/main/compete-in-group.html',
+                    templateUrl: 'templates/main/community/compete-in-group.html',
                     controller: 'CommCompeteCtrl'
                 }
             }
@@ -279,7 +279,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
       url: '/setting',
       views: {
         'SettingContent': {
-          templateUrl: 'templates/main/setting.html',
+          templateUrl: 'templates/main/setting/setting.html',
           controller: 'MainSettingCtrl'
         }
       }
