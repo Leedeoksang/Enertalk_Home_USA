@@ -10182,6 +10182,8 @@ a.button {
       #main-myenergy-line .line-container .line-image.bill-estimator {
         width: 60px;
         content: url("../img/bill_estimator.png"); }
+      #main-myenergy-line .line-container .line-image.myhome-diet {
+        content: url("../img/home.png"); }
     #main-myenergy-line .line-container .line-label {
       position: absolute;
       top: calc(50% - 10px);

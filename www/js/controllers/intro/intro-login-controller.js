@@ -1,6 +1,6 @@
 angular.module('enertalkHomeUSA.controllers')
 
-	.controller('IntroLoginCtrl', function ($scope, $state, User, Util, $timeout, $cordovaNetwork, $ionicPopup) {
+	.controller('IntroLoginCtrl', function ($scope, $state, User, Util, $timeout, $cordovaNetwork, $ionicPopup, UIHub) {
 
 		$scope.credentials = {
 			id: undefined,
@@ -67,6 +67,7 @@ angular.module('enertalkHomeUSA.controllers')
 						// id and password error
 					} else {
 						Util.localStorage.setObject('loginData', $scope.credentials);
+						UIHub.init();
 						$state.go('main.myenergy');
 					}
 					$scope.loading = false;

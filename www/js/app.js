@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.controllers', 'enertalkHomeUSA.services'])
 
-.run(function($ionicPlatform, UIHub) {
+.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -20,7 +20,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
     if(window.StatusBar) {
       StatusBar.styleDefault();
     }
-    UIHub.init();
+  
   });
 })
 
