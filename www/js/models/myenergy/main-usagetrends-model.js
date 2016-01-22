@@ -2,16 +2,16 @@ angular.module('enertalkHomeUSA.services')
 
 	.service('UsageTrendsModel', function ($q, Api, User) {
 
-		this.getDayData = function () {
+		this.getDayData = function (timestamp) {
 			var deferred = $q.defer(),
 			period = {
 				unit: 'hourly'
 			},
-			now = new Date(),
-			start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+			start = new Date(timestamp),
+			end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 1, 0);
 
 			period.start = start.getTime();
-			period.end = now.getTime();
+			period.end = end.getTime();
 
 			Api.getPeriodicUsage(User.accesstoken, User.uuid, period)
 			.then(function (response) {
@@ -30,17 +30,18 @@ angular.module('enertalkHomeUSA.services')
 			return deferred.promise;
 		};
 
-		this.getWeekData = function () {
+		this.getWeekData = function (timestamp) {
 			var deferred = $q.defer(),
 			period = {
 				unit: 'daily'
 			},
-			now = new Date(),
-			nowDayOfWeek = now.getDay(),
-			start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - nowDayOfWeek);
-		
+			date = new Date(timestamp),
+			nowDayOfWeek = date.getDay(),
+			start = new Date(date.getFullYear(), date.getMonth(), date.getDate() - nowDayOfWeek, 0);
+			end = new Date(start.getFullYear(), start.getMonth(), start.getDate() + 7, 0);
+
 			period.start = start.getTime();
-			period.end = now.getTime();
+			period.end = end.getTime();
 
 			Api.getPeriodicUsage(User.accesstoken, User.uuid, period)
 			.then(function (response) {
@@ -59,16 +60,17 @@ angular.module('enertalkHomeUSA.services')
 			return deferred.promise;
 		};	
 
-		this.getMonthData = function () {
+		this.getMonthData = function (timestamp) {
 			var deferred = $q.defer(),
 			period = {
 				unit: 'daily'
 			},
-			now = new Date(),
-			start = new Date(now.getFullYear(), now.getMonth(), 1);
+			date = new Date(timestamp),
+			start = new Date(date.getFullYear(), date.getMonth(), 1),
+			end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
 
 			period.start = start.getTime();
-			period.end = now.getTime();
+			period.end = end.getTime();
 
 			Api.getPeriodicUsage(User.accesstoken, User.uuid, period)
 			.then(function (response) {

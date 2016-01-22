@@ -6,15 +6,16 @@ angular.module('enertalkHomeUSA.controllers')
 
 		function init () {
 			var currentDate = new Date();
+			$scope.calendarType = 'goal';
 
 			currentYear = currentDate.getFullYear();
 			currentMonth = currentDate.getMonth() + 1;
 
-			EnergyCalendarModel.getModel().then(function (response) {
-				console.log(response);
+			EnergyCalendarModel.getModel(currentDate.getTime(), $scope.calendarType).then(function (response) {
 				$scope.dataList = response.dataList;
 				$scope.totalUsage = (response.totalUsage / 1000000).toFixed(2);
 				$scope.forecastUsage = (response.forecastUsage / 1000000).toFixed(2);
+				$scope.dayUsage = ($scope.totalUsage / $scope.dataList.length).toFixed(2);
 				makeCalendarHeader(currentYear, currentMonth);
 				makeCalendar(currentYear, currentMonth);
 			});
@@ -91,28 +92,50 @@ angular.module('enertalkHomeUSA.controllers')
 			$scope.dateList = dateList;
 		}
 
+		// $scope.dayLabel = function (timestamp) {
+		// 	var date = new Date(timestamp);
+
+		// 	return date.getDate();
+		// };
+
 		$scope.button = {
 			clickLeft: function () {
 				var date = new Date(currentYear, (currentMonth - 1) - 1, 1);
 				currentYear = date.getFullYear();
 				currentMonth = date.getMonth() + 1;
 
-				makeCalendarHeader(currentYear, currentMonth);
-				makeCalendar(currentYear, currentMonth);
+				EnergyCalendarModel.getModel(date.getTime(), $scope.calendarType).then(function (response) {
+					$scope.dataList = response.dataList;
+					$scope.totalUsage = (response.totalUsage / 1000000).toFixed(2);
+					$scope.forecastUsage = (response.forecastUsage / 1000000).toFixed(2);
+					$scope.dayUsage = ($scope.totalUsage / $scope.dataList.length).toFixed(2);
+					makeCalendarHeader(currentYear, currentMonth);
+					makeCalendar(currentYear, currentMonth);
+				});
+
 			},
 			clickRight: function () {
 				var date = new Date(currentYear, (currentMonth - 1) + 1, 1);
 				currentYear = date.getFullYear();
 				currentMonth = date.getMonth() + 1;
 
-				makeCalendarHeader(currentYear, currentMonth);
-				makeCalendar(currentYear, currentMonth);
+				EnergyCalendarModel.getModel(date.getTime(), $scope.calendarType).then(function (response) {
+					$scope.dataList = response.dataList;
+					$scope.totalUsage = (response.totalUsage / 1000000).toFixed(2);
+					$scope.forecastUsage = (response.forecastUsage / 1000000).toFixed(2);
+					$scope.dayUsage = ($scope.totalUsage / $scope.dataList.length).toFixed(2);
+					makeCalendarHeader(currentYear, currentMonth);
+					makeCalendar(currentYear, currentMonth);
+				});
 			},
-			switchCalendar1: function () {
-				
-			},
-			switchCalendar2: function () {
-
+			changeCalendarType: function (type) {
+				var date = new Date(currentYear, (currentMonth - 1), 1);
+				$scope.calendarType = type || 'goal';
+				EnergyCalendarModel.getModel(date.getTime(), $scope.calendarType).then(function (response) {
+					$scope.dataList = response.dataList;
+					makeCalendarHeader(currentYear, currentMonth);
+					makeCalendar(currentYear, currentMonth);
+				});
 			}
 		};
 

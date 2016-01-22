@@ -1,16 +1,12 @@
 #energy-calendar {
-	padding: 20px 12px 8px;
+
+	.scroll {
+		height: 100%;
+	}
 
 	.scroll-bar {
 		visibility: hidden;
 	}
-
-/*	#title {
-		height: 40px;
-		line-height: 40px;
-		font-size: 20px;
-		text-align: center;
-	}*/
 
 	#calendar-header {
 		text-align: center;
@@ -19,6 +15,7 @@
 		line-height: 30px;
 		font-size: 16px;
 		position: relative;
+		margin-top: 20px;
 
 		.calendar-button {
 			display: inline-block;
@@ -28,31 +25,28 @@
 			&.activated {
 				opacity: 0.3;
 			}
-
-			&.left {
-
-			}
-			&.right {
-
-			}
 		}
 
 		#switch-button-container {
 			position: absolute;
 			top: 0;
 			right: 0;
+			padding-right: 24px;
 			.calendar-switch-button {
 				display: inline-block;
 				width: 30px;
 				height: 20px;
-				line-height: 20px;
+				line-height: 18px;
 				font-size: 10px;
 				border: 1px solid #cccccc;
-				&.active {
+				
+				&.clicked {
 					background-color: #666666;
+					color: #FFFFFF;
 				}
 			}
 		}
+
 		#calendar-date {
 			display: inline-block;
 			text-align: center;
@@ -61,24 +55,33 @@
 			padding-right: 12px;
 		}
 	}
+
 	#calendar-container {
-		/*height: calc(90% - 70px);*/
+		height: calc(60% - 50px);
+		padding-left: 24px;
+		padding-right: 24px;
+		padding-bottom: 24px;
+		padding-top: 24px;
 
 		#calendar {
-			margin-top: 20px;
-			margin-bottom: 20px;
-			
+			height: 100%;
 			.day-elem {
 				display: inline-block;
-				width: calc(100% / 7);
+				width: calc((100% - 28px) / 7);
 				text-align: center;
 				font-size: 12px;
+				height: 20px;
+				margin-left: 2px;
+				margin-right: 2px;
 			}
 			.elem {
 				display: inline-block;
-				width: calc(100% / 7);
+				width: calc((100% - 28px) / 7);
+				height: calc((100% - 44px) / 6);
 				text-align: center;
 				border: 0.1em solid #cccccc;
+				border-radius: 4px;
+				margin: 2px;
 
 				.elem-header {
 					display: block;
@@ -86,35 +89,55 @@
 				}
 				.elem-badge {
 					display: inline-block;
-					width: 36px;
-					height: 36px;
+					/*width: 80%;*/
+					height: 80%;
 					&.green {
 						content: url('../img/green.png');
 					}
+					&.morning {
+						content: url('../img/morning.png');
+					}
+					&.afternoon {
+						content: url('../img/afternoon.png');
+					}
+					&.evening {
+						content: url('../img/evening.png');
+					}
+					&.night {
+						content: url('../img/night.png');
+					}
+				}
+
+				&.empty {
+					background-color: #878787;
+					opacity: 0.3;
 				}
 			}
 		}
 	}
 
-	#calendar-subcontents-container {
+	.calendar-subcontents-container {
+		height: calc(40% - 30px);
+		overflow-y: scroll;
+		overflow-x: hidden;
+		-webkit-overflow-scrolling: touch;
 
-		.sub-content {
-			height: 80px;
-			line-height: 80px;
+		/*.sub-content {
+			height: 50%;
 			padding-left: 12px;
 			padding-right: 12px;
-			font-size: 16px;
+			font-size: 12px;
 			position: relative;
 			border: 2px solid #cccccc;
 			border-radius: 12px;
 			margin-bottom: 8px;
 
 			.sub-content-figure {
-				font-size: 24px;
+				font-size: 18px;
 				font-weight: 500;
 				position: absolute;
 				right: 12px;
 			}
-		}
+		}*/
 	}
 }

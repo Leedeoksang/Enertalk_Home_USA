@@ -18,7 +18,6 @@ angular.module('enertalkHomeUSA.services')
         category: 'home',
         iframe: true
       });
-
     };
 
     this.renderCard = function (cards, target, next) {

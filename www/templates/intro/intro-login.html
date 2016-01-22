@@ -2,23 +2,32 @@
 	<ion-content id="intro-login">
 
     <span id="login-image"></span>
- 		<div class="list">
+ 		
+    <div class="list">
   			<label class="item item-input">
-    			<input type="text" placeholder="ID or Phonenumber" ng-model="credentials.id">
+    			<input type="text" placeholder="ID or Phone number" ng-model="credentials.id">
   			</label>
   			<label class="item item-input">
     			<input type="password" placeholder="password" ng-model="credentials.password">
   			</label>
 		</div>
-		<button class="button button-block button-positive" ng-click="login()">
-      <span ng-show="!loading">Log In</span>
-      <ion-spinner ng-if="loading"></ion-spinner>
-    </button>
-        <!-- <button class="button button-block button-positive" ng-click="passwordRecovery()">Forgot your Password?</button> -->
-        <div class="text-center sign-up">
-            Don't have an account?
-        </div>
-        <button class="button button-block button-positive" ng-click="signup()">Sign Up</button>
+
+    <div class="col col-80 col-offset-10">
+  		<button class="button button-block button-positive" ng-click="login()">
+        <span ng-show="!loading">Log In</span>
+        <ion-spinner ng-if="loading"></ion-spinner>
+      </button>
+    </div>
+
+    <!-- <button class="button button-block button-positive" ng-click="passwordRecovery()">Forgot your Password?</button> -->
+    <div class="text-center sign-up">
+        Don't have an account?
+    </div>
+
+    <div class="col col-80 col-offset-10">
+      <button class="button button-block button-positive" ng-click="signup()">Sign Up</button>
+    </div>
+
 	</ion-content>
 </ion-view>
 

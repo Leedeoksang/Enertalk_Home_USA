@@ -1,0 +1,16 @@
+﻿<ion-view view-title="Comparison to Neighbors">
+    <ion-content id="compare-container">
+        <div id="compare">
+
+            <button class="button button-block button-positive" ng-click="edit()">Add or Edit Home Information</button>
+
+            <!-- <img src="img/comparetemp.jpg" /> -->
+
+
+            <div ng-repeat="data in detailDataList | filter: removeZero">
+                {{data}}
+                <div id="chart"></div>
+            </div>
+        </div>
+</ion-content>
+</ion-view>
