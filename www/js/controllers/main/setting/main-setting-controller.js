@@ -1,6 +1,6 @@
 angular.module('enertalkHomeUSA.controllers')
 
-	.controller('MainSettingCtrl', function($scope, User, Util, $cordovaCamera, $log, $window) {
+	.controller('MainSettingCtrl', function($scope, User, Util, $cordovaCamera, $log, $window, $state) {
 		function init () {
 			var setting = Util.localStorage.getObject('setting'),
 				profileImage = Util.localStorage.get('profileImageURI'),
@@ -9,7 +9,6 @@ angular.module('enertalkHomeUSA.controllers')
 
 			$scope.profile = User.profile;
 			$scope.setting = setting;
-			$scope.plan = (User.dailyPlan / 1000000).toFixed(2);
 
 			if (profileImage) {
 				imageTarget.src = "data:image/jpeg;base64," + profileImage;
@@ -17,12 +16,8 @@ angular.module('enertalkHomeUSA.controllers')
 				imageTarget.src = './img/user.png';
 			}
 			
-			if (settingKeyList.indexOf('enableAutoLogin') < 0) {
-				$scope.setting.enableAutoLogin = true;
-				Util.localStorage.setObject('setting', setting);
-			}
 			if (settingKeyList.indexOf('enableRealtimePopup') < 0) {
-				$scope.setting.enableRealtimePopup = true;
+				$scope.setting.enableRealtimePopup = false;
 				Util.localStorage.setObject('setting', setting);
 			}
 		}
@@ -53,4 +48,8 @@ angular.module('enertalkHomeUSA.controllers')
 		};
 
 		init ();
+
+		$scope.goToDetailSetting = function (nextState) {
+			$state.go(nextState);
+		};
 	});

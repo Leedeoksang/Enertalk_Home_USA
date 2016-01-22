@@ -17,45 +17,60 @@ angular.module('enertalkHomeUSA.controllers')
   			$scope.modal = modal;
   		});
 
-  		document.addEventListener("deviceready", function () {
-  			var watch;
-		    watch = $cordovaDeviceMotion.watchAcceleration(options);
+  		function init () {
+  			var setting = Util.localStorage.getObject('setting');
+  			
+	  		document.addEventListener("deviceready", function () {
+	  			var watch;
+			    watch = $cordovaDeviceMotion.watchAcceleration(options);
 
-		    watch.then(
-	      	null,
-	      	function(error) {
-	      		console.log(error);
-	      	},
-	      	function(result) {
-	      		var measurementChanges = {};
+			    watch.then(
+		      	null,
+		      	function(error) {
+		      		console.log(error);
+		      	},
+		      	function(result) {
+		      		var measurementChanges = {},
+		      			setting = Util.localStorage.getObject('setting');
 
-	        	if (!$scope.previousMeasurement) {
-	        		$scope.previousMeasurement = {
-		        		x: result.x,
-		        		y: result.y,
-		        		z: result.z,
-		        		timestamp: result.timestamp
-		        	};	
-	        	} else {
-	        		$scope.previousMeasurement = $scope.measurement;
-	        		$scope.measurement = {
-		        		x: result.x,
-		        		y: result.y,
-		        		z: result.z,
-		        		timestamp: result.timestamp
-		        	};
-	        		measurementChanges.x = Math.abs($scope.measurement.x - $scope.previousMeasurement.x);
-	        		measurementChanges.y = Math.abs($scope.measurement.y - $scope.previousMeasurement.y);
-	        		measurementChanges.z = Math.abs($scope.measurement.z - $scope.previousMeasurement.z);
+		      		if (setting.enableRealtimePopup) {
+			        	if (!$scope.previousMeasurement) {
+			        		$scope.previousMeasurement = {
+				        		x: result.x,
+				        		y: result.y,
+				        		z: result.z,
+				        		timestamp: result.timestamp
+				        	};	
+			        	} else {
+			        		$scope.previousMeasurement = $scope.measurement;
+			        		$scope.measurement = {
+				        		x: result.x,
+				        		y: result.y,
+				        		z: result.z,
+				        		timestamp: result.timestamp
+				        	};
+			        		measurementChanges.x = Math.abs($scope.measurement.x - $scope.previousMeasurement.x);
+			        		measurementChanges.y = Math.abs($scope.measurement.y - $scope.previousMeasurement.y);
+			        		measurementChanges.z = Math.abs($scope.measurement.z - $scope.previousMeasurement.z);
 
-	        		if (measurementChanges.x + measurementChanges.y + measurementChanges.z > options.deviation) {
-	        			$scope.modal.show();
-	        			$scope.loading = true;
-	        			renderRealtimeCard();
-	        		}
-	        	}
-		    });
-		}, false);  
+			        		if (measurementChanges.x + measurementChanges.y + measurementChanges.z > options.deviation) {
+			        			$scope.modal.show();
+			        			$scope.loading = true;
+			        			renderRealtimeCard();
+			        		}
+			        	}
+		        	}
+			    });
+			}, false);
+
+			// document.addEventListener('pause', function () {
+			// 	// for background
+			// });
+			// document.addEventListener('resume', function () {
+			// 	// for re entering app
+			// });
+
+		}
 		
 		function renderRealtimeCard () {
 			var card = {
@@ -83,5 +98,7 @@ angular.module('enertalkHomeUSA.controllers')
 				$scope.modal.hide();
 			}
 		};
+
+		init();
 
   	});

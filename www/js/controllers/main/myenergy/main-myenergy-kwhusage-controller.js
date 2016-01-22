@@ -15,7 +15,7 @@ angular.module('enertalkHomeUSA.controllers')
 				
 				$scope.dataList = response;
 				$scope.todayUsage = (totalUsage / 1000000).toFixed(2);
-				$scope.remaining = $scope.dailyPlan - $scope.todayUsage;
+				$scope.remaining = ($scope.dailyPlan - $scope.todayUsage).toFixed(2);
 
 				renderChart();
 			});

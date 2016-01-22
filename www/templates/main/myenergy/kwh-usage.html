@@ -1,14 +1,35 @@
 <ion-view view-title="Today">
 	<ion-content id="kwh-usage" scroll="false">
 
-		<div id="header-content">
+		<div class="list">
+			<div class="item">
+    			Daily Goal
+    			<span class="item-note">
+      				{{dailyPlan}} kWh
+    			</span>
+  			</div>
+  			<div class="item">
+    			Today's Usage
+    			<span class="item-note">
+      				{{todayUsage}} kWh
+    			</span>
+  			</div>
+  			<div class="item">
+    			Remaining
+    			<span class="item-note">
+      				{{remaining}} kWh
+    			</span>
+  			</div>
+		</div>
+
+		<!-- <div id="header-content">
 			<div class="line">
 				<span class="subject">Daily Goal</span>
-				<span class="figure">{{dailyPlan}}kWh</span>
+				<span class="figure">{{dailyPlan}} kWh</span>
 			</div>
 
 			<div class="line">
-				<span class="subject">Today`s Usage</span>
+				<span class="subject">Today's Usage</span>
 				<span class="figure">{{todayUsage}}kWh</span>
 			</div>
 
@@ -16,13 +37,13 @@
 				<span class="subject">Remaining</span>
 				<span class="figure">{{remaining}}kWh</span>
 			</div>
-		</div>
+		</div> -->
 
 		<div id="main-content">
 
-			<div id="guide">
+			<!-- <div id="guide">
 				If you keep your real-time usage constantly, you will meet the goal in 2 hours
-			</div>
+			</div> -->
 
 			<div id="chart">
 

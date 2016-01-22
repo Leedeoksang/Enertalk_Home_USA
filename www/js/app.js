@@ -283,6 +283,36 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
           controller: 'MainSettingCtrl'
         }
       }
+    })
+
+    .state('main.goal-setting', {
+      url: '/goal-setting',
+      views: {
+        'SettingContent': {
+          templateUrl: 'templates/main/setting/goal-setting.html',
+          controller: 'GoalSettingCtrl'
+        }
+      }
+    })
+
+    .state('main.info-setting', {
+      url: '/info-setting',
+      views: {
+        'SettingContent': {
+          templateUrl: 'templates/main/setting/info-setting.html',
+          controller: 'InfoSettingCtrl'
+        }
+      }
+    })
+    
+    .state('main.login-setting', {
+      url: '/login-setting',
+      views: {
+        'SettingContent': {
+          templateUrl: 'templates/main/setting/login-setting.html',
+          controller: 'LoginSettingCtrl'
+        }
+      }
     });
     // --------------------------------------
 

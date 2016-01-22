@@ -1,51 +1,45 @@
 angular.module('enertalkHomeUSA.controllers')
 
 	.controller('UsageTrendsCtrl', function($scope, UsageTrendsModel, User, $timeout) {
-		console.log(User);
-		$scope.tabs = [{
-			label: 'day',
-			dataList: [],
-			plan: User.dailyPlan / 24,
-			model: UsageTrendsModel.getDayData
-		},{
-			label: 'week',
-			dataList: [],
-			plan: User.dailyPlan,
-			model: UsageTrendsModel.getWeekData
-		},{
-			label: 'month',
-			dataList: [],
-			plan: User.dailyPlan,
-			model: UsageTrendsModel.getMonthData
-		},{
-			label: 'year',
-			dataList: [],
-			plan: User.profile.maxLimitUsage,
-			model: UsageTrendsModel.getYearData
-		}];
-		$scope.dailyPlan = User.dailyPlan;
-		$scope.currentTab = $scope.tabs[0];
-
-		$scope.clickTab = function (index) {
-			$scope.currentTab = $scope.tabs[index];
-			if (!$scope.currentTab.dataList.length) {
-				$scope.currentTab.model()
-				.then(function (response) {
-					$scope.currentTab.dataList = response;
-					drawChart();
-				})
-			} else {
-				drawChart();
-			}
-		};
 
 		function init () {
-			UsageTrendsModel.getDayData()
-			.then(function (response) {
+			
+			$scope.tabs = [{
+				label: 'day',
+				dataList: [],
+				plan: User.dailyPlan / 24,
+				model: UsageTrendsModel.getDayData,
+				index: 0
+			},{
+				label: 'week',
+				dataList: [],
+				plan: User.dailyPlan,
+				model: UsageTrendsModel.getWeekData,
+				index: 1
+			},{
+				label: 'month',
+				dataList: [],
+				plan: User.dailyPlan,
+				model: UsageTrendsModel.getMonthData,
+				index: 2
+			},{
+				label: 'year',
+				dataList: [],
+				plan: User.profile.maxLimitUsage,
+				model: UsageTrendsModel.getYearData,
+				index: 3
+			}];
+
+			$scope.dailyPlan = User.dailyPlan;
+			$scope.currentTab = $scope.tabs[0];
+			$scope.detailDataList = angular.copy(User.monthData);
+			$scope.detailDataList.reverse();
+			$scope.currentTimestamp = $scope.detailDataList[0].timestamp;
+
+			UsageTrendsModel.getDayData($scope.currentTimestamp).then(function (response) {
 				$scope.currentTab.dataList = response;
 				drawChart();
 			});
-			$scope.detailDataList = User.monthData.reverse();
 			// console.log($scope.detailDataList);
 			// UsageTrendsModel.getMonthData()
 			// .then(function (response) {
@@ -54,10 +48,16 @@ angular.module('enertalkHomeUSA.controllers')
 			// })
 		}
 
+		$scope.clickTab = function (index) {
+			$scope.currentTab = $scope.tabs[index];
+			$scope.currentTab.model($scope.currentTimestamp).then(function (response) {
+				$scope.currentTab.dataList = response;
+				drawChart();
+			})
+		};
+
 		function drawChart () {
 			var target = document.getElementById('chart'),
-				// width = target.style.width,
-				// height = target.style.height,
 				barOptions = {
 				chart: {
 		            type: 'column',
@@ -97,21 +97,22 @@ angular.module('enertalkHomeUSA.controllers')
 
 	            			if (type === 'day') {
 	            				if (date.getHours() === 0) {
-	            					return '12 a.m.';
+	            					return '12am';
 	            				} else if (date.getHours() === 12) {
-	            					return '12 p.m.';
+	            					return '12pm';
 	            				} else if (date.getHours() === 23) {
-	            					return '12 a.m.';
+	            					return '12am';
 	            				} else {
 	            					return '';
 	            				}
 	            			} else if (type === 'week') {
-	            				var day = ['S', 'M', 'Tu', 'W', 'Th', 'F', 'Sa'];
+	            				var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+	            				console.log(date.getTime());
 	            				console.log(date.getDay());
 	            				return day[date.getDay()];
 	            			} else if (type === 'month') {
 	            				if (date.getDate() === 1) {
-	            					return '1th';
+	            					return '1st';
 	            				} else if (date.getDate() === 15) {
 	            					return '15th';
 	            				}
@@ -168,6 +169,12 @@ angular.module('enertalkHomeUSA.controllers')
 		        }]
 			};
 
+			Highcharts.setOptions({
+				global: {
+					useUTC: false
+				}
+			});
+
 			$scope.chart = new Highcharts.chart(barOptions);			
 		}
 
@@ -203,5 +210,11 @@ angular.module('enertalkHomeUSA.controllers')
 		$scope.removeZero = function (item) {
 			return item.unitPeriodUsage > 0;
 		};
+
+		$scope.changeDay = function (timestamp) {
+			$scope.currentTimestamp = timestamp;
+			$scope.clickTab($scope.currentTab.index);
+		};
+
 		init ();
 	});

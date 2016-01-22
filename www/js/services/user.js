@@ -13,20 +13,16 @@ angular.module('enertalkHomeUSA.services')
 			_this.hourlyPlan = 0;
 			_this.monthData = undefined;
 
-			// var savedUser = Util.localStorage.getObject('User'),
-			// 	savedProfile = Util.localStorage.getObject('proflie');
+			var savedUser = Util.localStorage.getObject('User');
 
-			// if (savedUser) {
-			// 	_this.accesstoken = savedUser.accesstoken;
-			// 	_this.refreshtoken = savedUser.refreshtoken;
-			// 	_this.uuid = savedUser.uuid;
-			// 	_this.dailyPlan = savedUser.dailyPlan;
-			// 	_this.hourlyPlan = savedUser.monthlyPlan;
-			// 	_this.monthData = savedUser.monthData;
-			// }
-			// if (savedProfile) {
-			// 	_this.proflie = savedProfile;
-			// }
+			if (savedUser) {
+				_this.accesstoken = savedUser.accesstoken;
+				_this.refreshtoken = savedUser.refreshtoken;
+				_this.uuid = savedUser.uuid;
+				_this.dailyPlan = savedUser.dailyPlan;
+				_this.hourlyPlan = savedUser.monthlyPlan;
+				_this.monthData = savedUser.monthData;
+			}
 		};
 
 		this.login = function (credentials, next) {
@@ -59,16 +55,15 @@ angular.module('enertalkHomeUSA.services')
 					next(null, 'success');
 					_this.getMonthData();
 					
-					// Util.localStorage.setObject('User', {
-					// 	accesstoken: _this.accesstoken,
-					// 	refreshtoken: _this.refreshtoken,
-					// 	uuid: _this.uuid,
-					// 	profile: _this.proflie,
-					// 	dailyPlan: _this.dailyPlan,
-					// 	hourlyPlan: _this.hourlyPlan,
-					// 	monthData: _this.monthData
-					// });
-					// Util.localStorage.setObject('profile', _this.profile);
+					Util.localStorage.setObject('User', {
+						accesstoken: _this.accesstoken,
+						refreshtoken: _this.refreshtoken,
+						uuid: _this.uuid,
+						profile: _this.proflie,
+						dailyPlan: _this.dailyPlan,
+						hourlyPlan: _this.hourlyPlan,
+						monthData: _this.monthData
+					});
 
 				} else {
 					return $q.reject();
@@ -106,97 +101,10 @@ angular.module('enertalkHomeUSA.services')
 				Api.getPeriodicUsage(_this.accesstoken, _this.uuid, period)
 				.then(function (response) {
 					if (response.status === 200) {
-						_this.monthData = refineMonthData(response.data);
+						_this.monthData = Util.refineMonthData(response.data);
 					}
 				});
 		};
-
-		function refineMonthData (dataList) {
-			var refineData = [],
-				refineObject = {
-					timestamp: 0,
-					unitPeriodUsage: 0,
-					activeTime: ''
-				},
-				currentDate,
-				previousDate,
-				timeData = [0, 0, 0, 0];
-
-			angular.forEach(dataList, function (data, index) {
-				if (index === 0) {
-					refineObject.timestamp = data.timestamp;
-					refineObject.unitPeriodUsage = data.unitPeriodUsage;
-					currentDate = new Date(data.timestamp);
-					previousDate = new Date(data.timestamp);
-					timeData[defineActiveTime(data.timestamp)] += data.unitPeriodUsage;
-				} else if (index === dataList.length - 1) {
-					refineObject.activeTime = getActiveTime(timeData);
-					refineData.push(refineObject);
-				}
-				else {
-					currentDate = new Date(data.timestamp);
-					if (currentDate.getDate() !== previousDate.getDate()) {
-						refineObject.activeTime = getActiveTime(timeData);
-						refineData.push(refineObject);
-						refineObject = {
-							timestamp: 0,
-							unitPeriodUsage: 0,
-							activeTime: ''
-						};
-						timeData = [0, 0, 0, 0];
-						refineObject.timestamp = data.timestamp;
-					} else {
-						refineObject.unitPeriodUsage += data.unitPeriodUsage;
-						timeData[defineActiveTime(data.timestamp)] += data.unitPeriodUsage;
-					}
-					previousDate = new Date(data.timestamp);
-				}
-			});
-
-			function defineActiveTime (timestamp) {
-				var date = new Date(timestamp),
-					hour = date.getHours(),
-					index = 0;
-
-				if (hour >= 0 && hour < 6) {
-					index = 0;
-					// night
-				} else if (hour >= 6 && hour < 12) {
-					index = 1;
-					// morning
-				} else if (hour >= 12 && hour < 18) {
-					index = 2;
-					// afternoon
-				} else if (hour >= 18 && hour < 24) {
-					index = 3;
-					//evening
-				}
-				return index;
-			}
-
-			function getActiveTime (dataFromTime) {
-				var max = 0,
-					maxIndex = 0;
-				angular.forEach(dataFromTime, function (data, index) {
-					if (data > max) {
-						max = data;
-						maxIndex = index;
-					}
-				});
-
-				if (maxIndex === 0) {
-					return 'night';
-				} else if (maxIndex === 1) {
-					return 'morning';
-				} else if (maxIndex === 2) {
-					return 'afternoon';
-				} else if (maxIndex === 3) {
-					return 'evening';
-				}
-			}
-
-			return refineData;
-		}
 
 		_this.init();
 	});

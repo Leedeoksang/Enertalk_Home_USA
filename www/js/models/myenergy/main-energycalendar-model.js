@@ -1,59 +1,55 @@
 angular.module('enertalkHomeUSA.services')
 
-	.service('EnergyCalendarModel', function ($q, Api, User) {
+	.service('EnergyCalendarModel', function ($q, Api, User, Util) {
 
-		this.getModel = function () {
+		this.getModel = function (timestamp, type) {
 			var deferred = $q.defer(),
-				now = new Date(),
-				period = {
-					unit: 'daily'
-				},
-				start = new Date(now.getFullYear(), now.getMonth(), 1);
+				date = timestamp ? new Date(timestamp) : new Date(),
+				calendarType = type || 'goal',
+				period = {},
+				start = new Date(date.getFullYear(), date.getMonth(), 1),
+				end = new Date(date.getFullYear(), date.getMonth() + 1, 0),
+				data = {};
+
+			if (type === 'goal') {
+				period.unit = 'daily';
+			} else if (type === 'time') {
+				period.unit = 'hourly';
+			}
 
 			period.start = start.getTime();
-			period.end = now.getTime();
+			period.end = end.getTime();
 
-			$q.all([
-				Api.getPeriodicUsage(User.accesstoken, User.uuid, period),
-				Api.getForecastUsage(User.accesstoken, User.uuid)
-				])
+				$q.all([
+					Api.getPeriodicUsage(User.accesstoken, User.uuid, period),
+					Api.getForecastUsage(User.accesstoken, User.uuid)
+				]).then(function (responses) {
+					var tempData;
 
-			.then(function (responses) {
-				var data = {},
-					tempData;
-
-				if (responses[0].status === 200) {
-					tempData = refineData(responses[0].data);
-					data.totalUsage = tempData.totalUsage;
-					data.dataList = tempData.dataList;
-				}	
-				if (responses[1].status === 200) {
-					data.forecastUsage = responses[1].data.meteringUsage;
-				}
-				deferred.resolve(data);
-			})
-
-			.catch(function (error) {
-				deferred.reject(data);
-			});
-
-			// Api.getPeriodicUsage(User.accesstoken, User.uuid, period)
-			// .then(function (response) {
-			// 	if (response.status == 200) {
-			// 		var data = refineData(response.data);
-			// 		deferred.resolve(data);
-			// 	} else {
-			// 		deferred.reject('status not 200');
-			// 	}
-			// })
-			// .catch(function (error) {
-			// 	deferred.reject(error);
-			// });
+						if (responses[0].status === 200) {
+							if (type === 'time') {
+								responses[0].data = Util.refineMonthData(responses[0].data);
+								tempData = refineDataForTime(responses[0].data);
+								data.dataList = responses[0].data;
+							} else {
+								tempData = refineDataForPlan(responses[0].data);
+								data.dataList = tempData.dataList;
+							}
+							data.totalUsage = tempData.totalUsage;
+						}	
+						if (responses[1].status === 200) {
+							data.forecastUsage = responses[1].data.meteringUsage;
+						}
+						deferred.resolve(data);
+				}).catch(function (error) {
+					console.log(error);
+					deferred.reject(data);
+				});
 
 			return deferred.promise;
 		};
 
-		function refineData (dataList) {
+		function refineDataForPlan (dataList) {
 			var plan = User.dailyPlan,
 				totalUsage = 0;
 
@@ -72,20 +68,14 @@ angular.module('enertalkHomeUSA.services')
 			};
 		}
 
-		this.getModel2 = function () {
-			var deferred = $q.defer(),
-				now = new Date(),
-				period = {
-					unit: 'hourly'
-				},
-				start = new Date(now.getFullYear(), now.getMonth(), 1);
-
-			period.start = start.getTime();
-			period.end = now.getTime();
-			
-			Api.getPeriodicUsage(User.accesstoken, User.uuid, period)
-			.then(function (response) {
-				
+		function refineDataForTime (dataList) {
+			var totalUsage = 0;
+			angular.forEach(dataList, function (data) {
+				totalUsage += data.unitPeriodUsage;
 			});
-		};
+			return {
+				totalUsage: totalUsage
+			};
+		}
+
 	});

@@ -8,20 +8,42 @@
 	  	<div id="setting-container">
 	  		<div class="list">
 
-			    <div class="item item-avatar">
-			      	<img src="./img/user.png" id="profile-image" ng-click="changeProfileImage()">
-			      	<h2>name:   {{profile.nickName}}</h2>
-              <h2>email:   {{profile.email}}</h2>
-              <h2>plan:   {{plan}}kWh</h2>
+          <div class="item item-divider"></div>
+
+			    <div class="item item-thumbnail-left">
+		      	<img src="./img/user.png" id="profile-image" ng-click="changeProfileImage()">
+		      	<h2>Profile</h2>
+            <p>{{profile.nickName}}</p>
+            <p>{{profile.email}}</p>
           </div>
 
-			    <li class="item item-icon-right">
-      				Reset Daily Target
+          <div class="item item-divider"></div>
+
+			    <li class="item item-icon-right" ng-click="goToDetailSetting('main.goal-setting')">
+      				Reset Daily Goal
       				<i class="icon ion-ios-arrow-forward">
       				</i>
     			</li>
 
-			    <li class="item item-toggle">
+          <div class="item item-divider"></div>
+
+          <li class="item item-icon-right" ng-click="goToDetailSetting('main.info-setting')">
+              My Home Info
+              <i class="icon ion-ios-arrow-forward">
+              </i>
+          </li>
+
+          <div class="item item-divider"></div>
+
+          <li class="item item-icon-right" ng-click="goToDetailSetting('main.login-setting')">
+              Login Setting
+              <i class="icon ion-ios-arrow-forward">
+              </i>
+          </li>
+
+          <div class="item item-divider"></div>
+
+			    <!-- <li class="item item-toggle">
      				Auto Login
      				<label class="toggle toggle-assertive">
        					<input type="checkbox" ng-model="setting.enableAutoLogin" ng-change="changeSetting()">
@@ -29,7 +51,7 @@
          					<div class="handle"></div>
        					</div>
     	 		  </label>
-          </li>
+          </li> -->
 
     	 		<li class="item item-toggle">
      				Pop-up Real-time usage
