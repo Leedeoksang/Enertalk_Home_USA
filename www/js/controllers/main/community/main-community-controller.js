@@ -9,12 +9,12 @@ angular.module('enertalkHomeUSA.controllers')
           if (typeof $rootScope.home == 'undefined') {
               $rootScope.home = {};
           }
-          if (typeof $rootScope.home.done == 'undefined') { //if info hasn't been filled, send to comparison edit page
-              $state.go('main.compare-edit-intro');
-          }
-          else {                        //otherwise, send the user to the comparison page
+          //if (typeof $rootScope.home.done == 'undefined') { //if info hasn't been filled, send to comparison edit page
+          //    $state.go('main.compare-edit-intro');
+          //}
+          //else {                        //otherwise, send the user to the comparison page
               $state.go('main.compare');
-          }
+          //}
       };
 
       //Stub for when the app has a built in forum feature instead of a Facebook link

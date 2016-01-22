@@ -2,18 +2,15 @@
     <ion-content id="compare-container">
         <div id="compare">
 
-            <!--    <h4>
-            square footage is: {{home.size}}
-            <br />
-            number of people is: {{home.people}}
-            <br />
-            number of bedrooms is: {{home.bedrooms}}
-            <br />
-            number of bathrooms is: {{home.bathrooms}}
+            <button class="button button-block button-positive" ng-click="edit()">Add or Edit Home Information</button>
 
-        </h4> -->
-            
-            <img src="img/comparetemp.jpg" />
+            <!-- <img src="img/comparetemp.jpg" /> -->
+
+
+            <div ng-repeat="data in detailDataList | filter: removeZero">
+                {{data}}
+                <div id="chart"></div>
+            </div>
         </div>
 </ion-content>
 </ion-view>
