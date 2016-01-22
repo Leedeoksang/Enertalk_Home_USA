@@ -1,10 +1,6 @@
 angular.module('enertalkHomeUSA.controllers')
 
-<<<<<<< HEAD:www/js/controllers/main-setting-controller.js
-	.controller('MainSettingCtrl', function($scope, User, Util, $cordovaCamera, $log, $window, $state, $rootScope) {
-=======
 	.controller('MainSettingCtrl', function($scope, User, Util, $cordovaCamera, $log, $window, $state) {
->>>>>>> duckWork:www/js/controllers/main/setting/main-setting-controller.js
 		function init () {
 			var setting = Util.localStorage.getObject('setting'),
 				profileImage = Util.localStorage.get('profileImageURI'),
