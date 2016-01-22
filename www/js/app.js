@@ -171,6 +171,16 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
             }
     })
 
+    .state('main.compare-edit', {
+        url: '/compare-edit',
+        views: {
+            'CommunityContent': {
+                templateUrl: 'templates/main/compare-edit-unified.html',
+                controller: 'CommCompareEditCtrl'
+            }
+        }
+    })
+
     .state('main.compare-edit-intro', {
         url: '/edit-intro',
         views: {

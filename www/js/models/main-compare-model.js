@@ -5,10 +5,10 @@ angular.module('enertalkHomeUSA.services')
 	    this.getYearData = function () {
 	        var deferred = $q.defer(),
 			period = {
-			    unit: 'daily'  //ideally monthly
+			    unit: 'monthly'  //ideally monthly
 			},
 			now = new Date(),
-			start = new Date(now.getFullYear(), 1, 1);
+			start = new Date(now.getFullYear(), 0, 1); // month is zero indexed, so 0 -> January
 
 	        period.start = start.getTime();
 	        period.end = now.getTime();

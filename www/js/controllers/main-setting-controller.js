@@ -1,6 +1,6 @@
 angular.module('enertalkHomeUSA.controllers')
 
-	.controller('MainSettingCtrl', function($scope, User, Util, $cordovaCamera, $log, $window) {
+	.controller('MainSettingCtrl', function($scope, User, Util, $cordovaCamera, $log, $window, $state, $rootScope) {
 		function init () {
 			var setting = Util.localStorage.getObject('setting'),
 				profileImage = Util.localStorage.get('profileImageURI'),
@@ -51,6 +51,13 @@ angular.module('enertalkHomeUSA.controllers')
 			    });
 			});
 		};
+
+		$scope.editHomeInfo = function () {
+		    if (typeof $rootScope.home == 'undefined') {
+		        $rootScope.home = {};
+		    }
+		    $state.go('main.compare-edit')
+		}
 
 		init ();
 	});

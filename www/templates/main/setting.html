@@ -10,9 +10,9 @@
 
 			    <div class="item item-avatar">
 			      	<img src="./img/user.png" id="profile-image" ng-click="changeProfileImage()">
-			      	<h2>name:   {{profile.nickName}}</h2>
-              <h2>email:   {{profile.email}}</h2>
-              <h2>plan:   {{plan}}kWh</h2>
+			      	<h2>Name:   {{profile.nickName}}</h2>
+              <h2>Email:   {{profile.email}}</h2>
+              <h2>Goal:   Less Than {{plan}} kWh</h2>
           </div>
 
 			    <li class="item item-icon-right">
@@ -20,6 +20,12 @@
       				<i class="icon ion-ios-arrow-forward">
       				</i>
     			</li>
+
+                <li class="item item-icon-right" ng-click="editHomeInfo()">
+                    Add Information for Neighbor Comparison
+                    <i class="icon ion-ios-arrow-forward">
+                    </i>
+                </li>
 
 			    <li class="item item-toggle">
      				Auto Login
@@ -41,6 +47,8 @@
     	 			</label>
 
   				</li>
+
+                
 
   			</div>
 	  	</div>

@@ -13,7 +13,7 @@ angular.module('enertalkHomeUSA.controllers')
         if (typeof $rootScope.home == 'undefined') {
             $rootScope.home = {};
         }
-        $state.go('main.compare-edit-intro')
+        $state.go('main.compare-edit')
     }
 
     function drawChart() {
