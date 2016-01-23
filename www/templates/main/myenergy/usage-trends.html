@@ -1,21 +1,22 @@
 <ion-view view-title="Usage Trends" id="usage-trends">
 	
-	<div class="tabs-top tabs-background-positive tabs-color-light">
+	<div class="tabs-top tabs-color-light">
 	    <div class="tabs">
-	    	
 	    	<a class="tab-item" ng-repeat="tab in tabs" ng-bind="tab.label" ng-class="{'active': tab.label === currentTab.label}" ng-click="clickTab($index)">
 	    	</a>  	
 	    
 	    </div>
 	</div>
 
-	<ion-content id="usage-trends-detail" scroll="false">
-		
-		<div id="chart"></div>
-		
+	<ion-content id="usage-trends-detail" scroll="false">	
+		<div class="chart-container">
+			<div id="chart-unit">(unit: kWh)</div>
+			<div id="chart"></div>
+		</div>
+
 		<div id="detail">
 
-			<div class="detail header">
+			<div class="detail-content header">
 				<span class="elem">date</span>
 				<span class="elem">kWh</span>
 				<span class="elem">plan (%)</span>
@@ -23,7 +24,7 @@
 			</div>
 			
 			<div id="detail-container">
-				<div class="detail" ng-repeat="data in detailDataList | filter: removeZero">
+				<div class="detail-content" ng-repeat="data in detailDataList | filter: removeZero" ng-click="changeDay(data.timestamp)" ng-class="{'active': data.timestamp === currentTimestamp}">
 					<span class="elem">{{label.getDayLabel(data.timestamp)}}</span>
 					<span class="elem">{{label.getkWhLabel(data.unitPeriodUsage)}}</span>
 					<span class="elem" ng-class="{'plan-up': data.unitPeriodUsage >= dailyPlan, 'plan-down': data.unitPeriodUsage < dailyPlan}">{{label.getPlanLabel(data.unitPeriodUsage)}}</span>

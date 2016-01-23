@@ -1,11 +1,16 @@
 #kwh-usage {
-	padding: 8px 12px 8px;
-	
+	padding-top: 12px;
+
 	.scroll {
 		height: 100%;
 	}	
 
-	#header-content {
+	.list {
+		.item {
+			border: 0px;
+		}
+	}
+	/*#header-content {
 		height: 20%;
 		padding-top: 30px;
 		padding-left: 8px;
@@ -27,7 +32,7 @@
 				text-align: right;
 			}
 		}		
-	}	
+	}	*/
 
 	#main-content {
 		height: 80%;

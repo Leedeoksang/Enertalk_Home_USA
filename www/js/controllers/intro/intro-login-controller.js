@@ -1,7 +1,7 @@
 angular.module('enertalkHomeUSA.controllers')
 
-	.controller('IntroLoginCtrl', function ($scope, $state, User, Util, $timeout) {
-		
+	.controller('IntroLoginCtrl', function ($scope, $state, User, Util, $timeout, $cordovaNetwork, $ionicPopup, UIHub) {
+
 		$scope.credentials = {
 			id: undefined,
 			password: undefined
@@ -9,16 +9,42 @@ angular.module('enertalkHomeUSA.controllers')
 
 		function init () {
 			var credentials,
-				setting = Util.localStorage.getObject('setting');
+						setting = Util.localStorage.getObject('setting');
 
-			if (setting.enableAutoLogin) {
-				credentials = Util.localStorage.getObject('loginData');
-				// auto login
-				if (credentials.id && credentials.password) {
-					$scope.credentials = credentials;
-					$scope.login();
+				if (setting.enableAutoLogin) {
+					credentials = Util.localStorage.getObject('loginData');
+					// auto login
+					if (credentials.id && credentials.password) {
+						$scope.credentials = credentials;
+						$scope.login();
+					}
 				}
-			}
+			
+			// for network check
+
+			// document.addEventListener("deviceready", function () {
+			// 	var isOnline = $cordovaNetwork.isOnline();
+			// 	if (!isOnline) {
+			// 		$ionicPopup.show({
+			// 			title: 'network is not connected',
+			// 			buttons: [{
+			// 				text: 'OK'
+			// 			}]
+			// 		});
+			// 	} else {
+			// 		var credentials,
+			// 			setting = Util.localStorage.getObject('setting');
+
+			// 		if (setting.enableAutoLogin) {
+			// 			credentials = Util.localStorage.getObject('loginData');
+			// 			// auto login
+			// 			if (credentials.id && credentials.password) {
+			// 				$scope.credentials = credentials;
+			// 				$scope.login();
+			// 			}
+			// 		}
+			// 	}
+			// }, false);
 		}
 
 		$scope.login = function () {
@@ -41,6 +67,7 @@ angular.module('enertalkHomeUSA.controllers')
 						// id and password error
 					} else {
 						Util.localStorage.setObject('loginData', $scope.credentials);
+						UIHub.init();
 						$state.go('main.myenergy');
 					}
 					$scope.loading = false;

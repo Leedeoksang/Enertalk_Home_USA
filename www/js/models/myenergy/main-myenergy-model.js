@@ -38,10 +38,10 @@ angular.module('enertalkHomeUSA.services')
 			});
 
 			returnData.todayUsage = (totalUsage / 1000000).toFixed(2);
-			returnData.co2Emitted = (returnData.todayUsage * 0.474).toFixed(2);
-			returnData.treeNeeded = (returnData.todayUsage * 0.12).toFixed(2);
-			returnData.calories = (returnData.todayUsage * 860.421).toFixed(0);
-			returnData.hambugers = (returnData.calories / 279).toFixed(1);
+			returnData.co2Emitted = (returnData.todayUsage * 0.474).toFixed(1);
+			returnData.treeNeeded = (returnData.todayUsage * 0.12).toFixed(1);
+			// returnData.calories = (returnData.todayUsage * 860.421).toFixed(0);
+			// returnData.hambugers = (returnData.calories / 279).toFixed(1);
 			return returnData;
 		}
 	});

@@ -1,0 +1,25 @@
+#myhome-diet {
+	padding-top: 20px;
+	background-color: #f5f5f5;
+	.scroll {
+	
+	}
+
+	.list {
+		.item-thumbnail-left {
+			padding-top: 24px;
+			h2 {
+				font-size: 16px;
+			}
+			p {
+				font-size: 20px;
+			}
+		}
+
+		.item {
+			.item-note {
+				font-size: 20px;
+			}
+		}
+	}
+}

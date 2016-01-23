@@ -1,0 +1,24 @@
+<ion-view view-title="Login Setting">
+	<ion-content>
+		<div class="list">
+			<div class="item item-divider"></div>
+
+			<li class="item item-toggle">
+				Auto Login
+				<label class="toggle toggle-assertive">
+					<input type="checkbox" ng-model="setting.enableAutoLogin" ng-change="changeSetting()">
+					<div class="track">
+						<div class="handle"></div>
+					</div>
+				</label>
+			</li>
+
+			<li class="item item-icon-right" ng-click="logout()">
+            	Log Out
+              	<i class="icon ion-ios-arrow-forward">
+              	</i>
+          </li>
+
+		</div>
+	</ion-content>
+</ion-view>

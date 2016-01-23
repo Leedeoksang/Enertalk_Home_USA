@@ -18,7 +18,7 @@ angular.module('enertalkHomeUSA.controllers')
     			type: 'realtime-usage',
     			nextState: 'main.realtime-usage'
     		},{
-    			label: 'Standby Power',
+    			label: 'Always On',
     			type: 'standby-power',
     			nextState: 'main.standby-power'
     		}, {
@@ -67,7 +67,7 @@ angular.module('enertalkHomeUSA.controllers')
 			            endAngle: 135,
 			            background: {
 			                backgroundColor: '#EEE',
-			                innerRadius: '85%',
+			                innerRadius: '75%',
 			                outerRadius: '100%',
 			                shape: 'arc',
 			                borderWidth: 0
@@ -82,8 +82,8 @@ angular.module('enertalkHomeUSA.controllers')
 			        	min: 0,
 			        	max: 10,
 			        	stops: [
-			                [0.0, '#00cc00'], // green
-			                [1.0, '#00cc00'], // yellow
+			                [0.0, '#0098ff']/*, // green
+			                [1.0, '#00cc00'],*/ // yellow
 			            ],
 			            lineWidth: 0,
 			            minorTickInterval: null,
@@ -99,7 +99,7 @@ angular.module('enertalkHomeUSA.controllers')
 
 			        plotOptions: {
 			            solidgauge: {
-			            	innerRadius: '85%',
+			            	innerRadius: '75%',
 			                dataLabels: {
 			                    y: - 20,
 			                    borderWidth: 0,
