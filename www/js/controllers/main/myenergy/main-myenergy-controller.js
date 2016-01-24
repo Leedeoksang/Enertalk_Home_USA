@@ -1,6 +1,6 @@
 angular.module('enertalkHomeUSA.controllers')
   	
-  	.controller('MainMyenergyCtrl', function($scope, $state, $timeout, MyenergyModel) {
+  	.controller('MainMyenergyCtrl', function($scope, $state, $timeout, MyenergyModel, User) {
   		
   		$scope.init = function (){
   			var target = document.getElementById('myenergy');
@@ -80,10 +80,10 @@ angular.module('enertalkHomeUSA.controllers')
 
 			        yAxis: {
 			        	min: 0,
-			        	max: 10,
+			        	max: (User.dailyPlan / 1000000),
 			        	stops: [
-			                [0.0, '#0098ff']/*, // green
-			                [1.0, '#00cc00'],*/ // yellow
+			                [0.0, '#33cc33'],
+			                [1.0, '#cc0000'],
 			            ],
 			            lineWidth: 0,
 			            minorTickInterval: null,

@@ -15,7 +15,7 @@
 		line-height: 30px;
 		font-size: 16px;
 		position: relative;
-		margin-top: 20px;
+		padding-top: 20px;
 
 		.calendar-button {
 			display: inline-block;
@@ -117,10 +117,10 @@
 	}
 
 	.calendar-subcontents-container {
-		height: calc(40% - 30px);
-		overflow-y: scroll;
+		/*height: calc(40% - 30px);*/
+		/*overflow-y: scroll;
 		overflow-x: hidden;
-		-webkit-overflow-scrolling: touch;
+		-webkit-overflow-scrol*/ling: touch;
 
 		/*.sub-content {
 			height: 50%;

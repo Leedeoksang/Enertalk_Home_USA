@@ -1,4 +1,48 @@
 <ion-view view-title="Info Setting">
-	<ion-content>
+	<ion-content id="info-setting">
+		
+		<div class="list">
+			
+			<div class="item item-divider">geolocation</div>
+
+			<label class="item item-input item-select">
+			    <div class="input-label">
+			      	What state do you live?
+			    </div>
+			    <select ng-options="state as state.label for state in stateList track by state.id" ng-model="stateSelected">
+			    </select>
+			</label>
+
+			<label class="item item-input item-select">
+			    <div class="input-label">
+			      	What city do you live?
+			    </div>
+			    <select ng-options="city as city.label for city in cityList track by city.id" ng-model="citySelected">
+			    </select>
+			</label>
+
+			<div class="item item-divider">usage detail</div>
+
+			<label class="item item-input item-select">
+			    <div class="input-label">
+			      	When does your billing period start?
+			    </div>
+			    <select ng-options="day as day.label for day in periodStartList track by day.id" ng-model="periodSelected">
+			    </select>
+			</label>
+
+			<label class="item item-input item-select">
+			    <div class="input-label">
+			      	What is your rate plan
+			    </div>
+			    <select>
+			      	<option>1</option>
+			      	<option selected>2</option>
+			      	<option>3</option>
+			    </select>
+			</label>
+
+		</div>
+
 	</ion-content>
 </ion-view>

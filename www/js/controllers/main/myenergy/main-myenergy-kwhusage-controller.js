@@ -1,6 +1,6 @@
 angular.module('enertalkHomeUSA.controllers')
 
-	.controller('KwhUsageCtrl', function($scope, User, KwhUsageModel) {
+	.controller('KwhUsageCtrl', function($scope, User, KwhUsageModel, $window) {
 		
 		$scope.dailyPlan = (User.dailyPlan / 1000000).toFixed(2);
 
@@ -16,87 +16,34 @@ angular.module('enertalkHomeUSA.controllers')
 				$scope.dataList = response;
 				$scope.todayUsage = (totalUsage / 1000000).toFixed(2);
 				$scope.remaining = ($scope.dailyPlan - $scope.todayUsage).toFixed(2);
-
+				$scope.overage = ($scope.todayUsage - $scope.dailyPlan).toFixed(2);
+				getGuideSentence();
 				renderChart();
 			});
 		}
 
-		function renderFirstChart () {
-			var target = document.getElementById('usage-percent-chart'),
-			svg,
-			offsetWidth,
-			offsetHeight,
-			trackLine,
-			tintLine,
-			lineFunction = d3.svg.line()
-				.x(function (d) { return d.x; })
-				.y(function (d) { return d.y; })
-				.interpolate('linear');
-			
-			svg = d3.select(target)
-				.append('svg')
-				.attr({
-					'width': '100%',
-					'height': '100%'
-				});
-
-			offsetWidth = svg[0][0].offsetWidth;
-			offsetHeight = svg[0][0].offsetHeight;
-
-			trackLine = [{
-				x: 10,
-				y: offsetHeight / 2
-			}, {
-				x: offsetWidth - 10,
-				y: offsetHeight / 2
-			}];
-			tintLine = [{
-				x: 10,
-				y: offsetHeight / 2
-			}, {
-				x: offsetWidth * 0.7 - 10,
-				y: offsetHeight / 2
-			}];
-
-			svg.append('path')
-				.attr({
-					'd': lineFunction(trackLine),
-					'stroke': '#878787',
-					'stroke-width': 20,
-					'stroke-linecap': 'round'
-				});
-
-			svg.append('path')
-				.attr({
-					'd': lineFunction(tintLine),
-					'stroke': '#93E7CD',
-					'stroke-width': 20,
-					'stroke-linecap': 'round'
-				})
-		}
 		function renderChart () {
 			var barOptions = {
 				chart: {
 		            type: 'column',
+		            polar: true,
 		            renderTo: 'chart'
 		        },
 		        title: {
 		            text: ''
 		        },
-		        
+		        pane: {
+		        	size: '90%'
+		        },
 		        xAxis: {
 		            title: {
 		                text: null
 		            },
 		            type: 'datetime',
 		            labels: {
-		            		enabled: false
+	            		enabled: true
 		            },
-		            lineWidth: 0,
-		            tickWidth: 0,
-		            formatter: function () {
-		            	console.log(this.x);
-		            }
+		            tickWidth: 1
 		        },
 		        yAxis: {
 		            min: 0,
@@ -107,24 +54,34 @@ angular.module('enertalkHomeUSA.controllers')
 		            	enabled: false
 		            },
 		            gridLineWidth: 0,
-		            plotLines: [{
-	                    value: User.dailyPlan / 24,
-	                    color: '#999999',
-	                    width: 2,
-	                    label: {
-	                    	enabled: false
-	                        // text: 'daily plan'
-	                    }
-                	}]
+		            endOnTick: false
+		            // plotLines: [{
+	             //        value: User.dailyPlan / 24,
+	             //        color: '#999999',
+	             //        width: 2,
+	             //        label: {
+	             //        	enabled: false
+	             //            // text: 'daily plan'
+	             //        }
+              //   	}]
 		        },
 		        tooltip: {
 		       			enabled: false
 		        },
 		        plotOptions: {
-		            bar: {
-		                dataLabels: {
-		                    enabled: false
-		                }
+		        	// area: {
+		        	// 	lineWidth: 0,
+		        	// 	marker: {
+		        	// 		enabled: false
+		        	// 	}
+		        	// }
+		            // bar: {
+		            //     dataLabels: {
+		            //         enabled: false
+		            //     }
+		            // }
+		            series: {
+		            	pointPlacement: 'on'
 		            }
 		        },
 		        legend: {
@@ -140,8 +97,27 @@ angular.module('enertalkHomeUSA.controllers')
 		        }]
 			};
 
+			Highcharts.setOptions({
+				global: {
+					useUTC: false
+				}
+			});
+
 			$scope.chart = new Highcharts.chart(barOptions)
 		}
+
+		function getGuideSentence () {
+			
+		}
+		
+		// $scope.test = function (e) {
+		// 	var target = document.getElementById('chart'),
+		// 		x = e.gesture.deltaX,
+		// 		pageX = e.gesture.center.pageX;
+
+		// 		target.style.transform = 'translateX(' + (pageX + x) + 'px)';
+		// 	// }
+		// };
 
 		init();
 	});

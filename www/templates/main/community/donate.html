@@ -1,25 +1,32 @@
 ﻿<ion-view view-title="Donate">
     <ion-content id="community">
-        <div class="community-container">
-            <div class="main-community-line"><a href="https://donate.doctorswithoutborders.org/onetime.cfm" target="_blank"><img class="center" src="img/doctors_without_borders.png" height=60 width=60>Doctors Without Borders
-                <p>Doctors Without Borders help people worldwide, delivering medical care where the need is greatest.</p> </a> </div>
-        </div>
+        
+        <div class="list">
 
-        <div class="community-container">
-            <div class="main-community-line"><a href="https://www.unicefusa.org/help/donate" target="_blank"><img class="center" src="img/Unicef-Logo.png" height=60 width=60>UNICEF
-                <p>The United Nations Children's Fund works for children's rights, survival, development and protection.</p></a> </div>
-        </div>
+            <a class="item item-thumbnail-left" ng-click="openUrl('https://donate.doctorswithoutborders.org/onetime.cfm')">
+                <img src="./img/doctors_without_borders.png">
+                <h2>Doctors Without Borders</h2>
+                <p>Doctors Without Borders help people worldwide, delivering medical care where the need is greatest.</p>
+            </a>
 
-        <!-- this is the only direct donation link I could find for PCF. Needs testing on other computers-->
-        <div class="community-container">
-            <div class="main-community-line"><a href="https://secure3.convio.net/pcf/site/Donation2?df_id=2540&2540.donation=form1&s_src=web&s_subsrc=main_donate" target="_blank"><img class="center" src="img/prevent-cancer.jpeg" height=60 width=60>Prevent Cancer Foundation
-                <p>The mission of the Prevent Cancer Foundation is saving lives across all populations through cancer prevention and early detection.</p> </a></div>
-        </div>
+            <a class="item item-thumbnail-left" ng-click="openUrl('https://www.unicefusa.org/help/donate')">
+                <img src="./img/Unicef-Logo.png">
+                <h2>UNICEF</h2>
+                <p>The United Nations Children's Fund works for children's rights, survival, development and protection.</p>
+            </a>
 
-        <div class="community-container">
-            <div class="main-community-line"><a href="https://donate.charitywater.org/donate" target="_blank"><img class="center" src="img/charitywater.jpg" height=60 width=60>Charity: Water
+            <a class="item item-thumbnail-left" ng-click="openUrl('https://secure3.convio.net/pcf/site/Donation2?df_id=2540&2540.donation=form1&s_src=web&s_subsrc=main_donate')">
+                <img src="./img/prevent-cancer.jpeg">
+                <h2>Prevent Cancer Foundation</h2>
+                <p>The mission of the Prevent Cancer Foundation is saving lives across all populations through cancer prevention and early detection.</p>
+            </a>
+
+            <a class="item item-thumbnail-left" ng-click="openUrl('https://donate.charitywater.org/donate')">
+                <img src="./img/charitywater.jpg">
+                <h2>Charity: Water</h2>
                 <p>Charity: Water is a non-profit organization that provides clean and safe drinking water to people in developing nations.</p>
-                </a></div>
+            </a>   
         </div>
+
     </ion-content>
 </ion-view>
