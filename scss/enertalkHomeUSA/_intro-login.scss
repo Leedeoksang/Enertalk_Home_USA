@@ -1,3 +1,7 @@
+/** {
+	font-weight: 500;
+}*/
+
 #intro-login {
 	padding: 8px 12px 8px;
 
@@ -29,6 +33,11 @@
 			border-radius: 12px;
 			margin-bottom: 20px;
 		}
+	}
+
+	.error {
+		text-align: center;
+		color: #ff0000;
 	}
 	
 	.sign-up {

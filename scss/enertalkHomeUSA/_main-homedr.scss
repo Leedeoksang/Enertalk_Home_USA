@@ -1,0 +1,15 @@
+#home-dr {
+
+	.scroll {
+		height: 100%;
+	}
+
+	#guide {
+		width: 300px;
+		font-size: 16px;
+		position: absolute;
+		top: 45%;
+		left: calc((100% - 300px) / 2);
+		text-align: center;
+	}	
+}

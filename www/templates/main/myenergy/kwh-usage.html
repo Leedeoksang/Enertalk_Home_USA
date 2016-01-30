@@ -1,7 +1,18 @@
-<ion-view view-title="Today">
-	<ion-content id="kwh-usage" scroll="false">
+<ion-view view-title="Today" can-swipe-back="false">
+	<ion-content id="kwh-usage">
+
+    <div id="main-content">
+
+      <div id="chart-container">
+        <div id="chart"></div>
+      </div>
+      
+      <div id="guide" ng-bind="guide"></div>
+      
+    </div>
 
 		<div class="list">
+
 			<div class="item">
     			Daily Goal
     			<span class="item-note">
@@ -20,40 +31,13 @@
       				{{remaining}} kWh
     			</span>
   			</div>
+  			<div class="item">
+  				Overage
+  				<span class="item-note">
+  					{{overage}} kWh
+  				</span>
+  			</div>
 		</div>
 
-		<!-- <div id="header-content">
-			<div class="line">
-				<span class="subject">Daily Goal</span>
-				<span class="figure">{{dailyPlan}} kWh</span>
-			</div>
-
-			<div class="line">
-				<span class="subject">Today's Usage</span>
-				<span class="figure">{{todayUsage}}kWh</span>
-			</div>
-
-			<div class="line">
-				<span class="subject">Remaining</span>
-				<span class="figure">{{remaining}}kWh</span>
-			</div>
-		</div> -->
-
-		<div id="main-content">
-
-			<!-- <div id="guide">
-				If you keep your real-time usage constantly, you will meet the goal in 2 hours
-			</div> -->
-
-			<div id="chart">
-
-			</div>
-
-		</div>
-
-		<div id="footer-content">
-
-		</div>
-	
 	</ion-content>
 </ion-view>

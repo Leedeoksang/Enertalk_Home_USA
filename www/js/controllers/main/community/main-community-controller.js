@@ -1,9 +1,9 @@
 angular.module('enertalkHomeUSA.controllers')
 
-  .controller('MainCommunityCtrl', function ($scope,$state,$rootScope) {
-      $scope.compete = function () {
-          $state.go('main.compete');
-      };
+  .controller('MainCommunityCtrl', function ($scope, $state, $window, $rootScope) {
+      // $scope.compete = function () {
+      //     $state.go('main.compete');
+      // };
 
       $scope.compare = function () {
           if (typeof $rootScope.home == 'undefined') {
@@ -22,12 +22,15 @@ angular.module('enertalkHomeUSA.controllers')
           //$state.go('main.forum');
       //};
 
-      $scope.donate = function () {
-          $state.go('main.donate');
-      };
+      // $scope.donate = function () {
+      //     $state.go('main.donate');
+      // };
 
-      $scope.homeDR = function () {
-          $state.go('main.home-dr')
-      };
+      // $scope.homeDR = function () {
+      //     $state.go('main.home-dr')
+      // };
 
+      $scope.openForum = function () {
+        $window.open('https://www.facebook.com/EnerTalk', '_system');
+      };
   });

@@ -5,51 +5,50 @@
     </ion-nav-title>
 
 
-	<ion-content id="community">
+	<ion-content id="community" scroll="false">
 
-        <div class="img">
-            <img height="200" width="700" src="img/grass.jpg">
-        </div> 
+        <div class="community-main-image"></div>
 
-        <div class="community-container">
-            <div class="main-community-line" ng-click="compete()">
-                <img class="center" src="img/line_tree.png" height=40 width=40> Compete with Friends
-                <p class="alt">Find your friends and compete to see who can meet their daily goal</p>
-            </div>
-        </div>
+        <!-- div class="img">
+            <img height="200" width="700" src="./img/grass.jpg">
+        </div>  -->
 
-        <div class="community-container">
-            <div class="main-community-line" ng-click="compare()">
-                <img class="center" src="img/line_tree.png" height=40 width=40> Neighbor Comparison
-                <p class="alt">Compare your energy use to users in similar homes</p>
-            </div>
-        </div>
+        <div class="community-selection-container">
 
-        <!-- stub for when there's a built in forum feature
-        <div class="community-container">
-            <div class="main-community-line" ng-click="forum()"> Forum </div>  
-        </div> -->
-        <div class="community-container">
-            <div class="main-community-line">
-                <a href="https://www.facebook.com/EnerTalk" target="_blank">
-                    <img class="center" src="img/line_tree.png" height=40 width=40> Forum
-                    <p class="alt">Discuss your energy adventure on our Facebook page</p>
+            <div class="list">
+                
+                <a class="item item-thumbnail-left" ui-sref="main.compete">
+                    <img src="./img/compete.png">
+                    <h2>Compete with Friends</h2>
+                    <p>Find your friends and compete to see who can meet their daily goal</p>
                 </a>
-            </div>
-        </div>
-         
-        <div class="community-container">
-            <div class="main-community-line" ng-click="donate()">
-                <img class="center" src="img/line_tree.png" height=40 width=40>Donate to Charity
-                <p class="alt">Saved some energy? Give back by donating to charity</p>
-            </div>
-        </div>
+            
+                <div class="item item-thumbnail-left" ng-click="compare()">
+                    <img src="./img/neighbor.png">
+                    <h2>Neighbor Comparison</h2>
+                    <p>Compare your energy use to users in similar homes</p>
+                </div>
 
-        <div class="community-container">
-            <div class="main-community-line" ng-click="homeDR()">
-                <img class="center" src="img/line_tree.png" height=40 width=40>Demand Response
-                <p class="alt">Save the environment by reducing usage at peak times</p>
+                <div class="item item-thumbnail-left" ng-click="openForum()">
+                    <img src="./img/forum.png">
+                    <h2>Forum</h2>
+                    <p>Discuss your energy adventure on our Facebook page</p>
+                </div>
+
+                <a class="item item-thumbnail-left" ui-sref="main.donate">
+                    <img src="./img/donate.png">
+                    <h2>Donate to Charity</h2>
+                    <p>Saved some energy? Give back by donating to charity</p>
+                </a>
+
+                <a class="item item-thumbnail-left" ui-sref="main.home-dr">
+                    <img src="./img/dr.jpg">
+                    <h2>Demand Response</h2>
+                    <p>Save the environment by reducing usage at peak times</p>
+                </a>
+
             </div>
+
         </div>
     </ion-content>
 </ion-view>

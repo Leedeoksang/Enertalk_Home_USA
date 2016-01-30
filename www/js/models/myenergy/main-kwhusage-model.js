@@ -5,7 +5,7 @@ angular.module('enertalkHomeUSA.services')
 		this.getDayData = function () {
 			var deferred = $q.defer(),
 			period = {
-				unit: 'hourly'
+				unit: '15min'
 			},
 			now = new Date(),
 			start = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
@@ -16,7 +16,6 @@ angular.module('enertalkHomeUSA.services')
 			Api.getPeriodicUsage(User.accesstoken, User.uuid, period)
 			.then(function (response) {
 				if (response.status === 200) {
-					console.log(response);
 					var dataList = refineData(response.data);
 					deferred.resolve(dataList);
 				} else {
@@ -33,8 +32,7 @@ angular.module('enertalkHomeUSA.services')
 
 		function refineData (dataList) {
 			var returnData = [],
-				now = new Date(),
-				tempDate;
+				date;
 
 			angular.forEach(dataList, function (data) {
 				returnData.push({
@@ -43,18 +41,16 @@ angular.module('enertalkHomeUSA.services')
 				});
 			});
 			if (returnData.length) {
-				tempDate = new Date(returnData[returnData.length - 1].x);
-				tempDate.setHours(tempDate.getHours() + 1);
-				while(tempDate.getHours() !== 0) {
+				date = new Date(returnData[returnData.length - 1].x);
+				date.setMinutes(date.getMinutes() + 15);
+				while(returnData.length < 96) {
 					returnData.push({
-						x: tempDate.getTime(),
+						x: date.getTime(),
 						y: 0
 					});
-					tempDate.setHours(tempDate.getHours() + 1);
-					
+					date.setMinutes(date.getMinutes() + 15);
 				}
 			}
-		
 			return returnData;
 		}
 

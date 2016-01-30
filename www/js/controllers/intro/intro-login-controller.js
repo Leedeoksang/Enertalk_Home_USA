@@ -9,7 +9,7 @@ angular.module('enertalkHomeUSA.controllers')
 
 		function init () {
 			var credentials,
-						setting = Util.localStorage.getObject('setting');
+				setting = Util.localStorage.getObject('setting');
 
 				if (setting.enableAutoLogin) {
 					credentials = Util.localStorage.getObject('loginData');
@@ -50,8 +50,12 @@ angular.module('enertalkHomeUSA.controllers')
 		$scope.login = function () {
 			var credentials = {};
 
+			$scope.isError = false;
+			$scope.hasNoId = false;
+			$scope.hasNoPassword = false;
+
+			$scope.loading = true;
 			if ($scope.credentials.id && $scope.credentials.password) {
-				$scope.loading = true;
 
 				if ($scope.credentials.id.indexOf('@') > -1) {
 					credentials.email = $scope.credentials.id;
@@ -64,6 +68,9 @@ angular.module('enertalkHomeUSA.controllers')
 
 				User.login(credentials, function (error, response) {
 					if (error) {
+						if (error.data.error_description === 'User not found') {
+							$scope.isError = true;
+						}
 						// id and password error
 					} else {
 						Util.localStorage.setObject('loginData', $scope.credentials);
@@ -74,10 +81,14 @@ angular.module('enertalkHomeUSA.controllers')
 
 				});
 			} else if (!$scope.credentials.id) {
-
+				$scope.hasNoId = true;
+				$scope.loading = false;
+				console.log('noId');
 				// id input command
 			} else if (!$scope.credentials.password) {
-
+				$scope.hasNoPassword = true;
+				$scope.loading = false;
+				console.log('noPassword');
 				// password input commanad
 			}
 		};

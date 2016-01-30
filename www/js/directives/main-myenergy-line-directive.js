@@ -5,7 +5,8 @@ angular.module('enertalkHomeUSA')
 	    	restrict: 'EA',
 	      	scope: {
 	      		label: '@',
-	      		type: '@'
+	      		type: '@',
+            figure: '@'
 	      	},
       		link: function (scope, element) {
         		

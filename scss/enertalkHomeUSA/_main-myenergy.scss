@@ -1,4 +1,5 @@
 #myenergy {
+	color: #444;
 	
 	.scroll {
 		height: 100%;
@@ -37,9 +38,92 @@
 			}
 		}
 
-		#kwh-chart {
+		.body {
 			height: calc(65% - 36px);
+			
+			.col {
+				height: 100%;
+			}
+
+			#kwh-chart {
+				width: 100%;
+				height: 100%;
+			}
+			#bill-summary {
+				width: 100%;
+				height: 100%;
+				position: relative;
+
+				.bill-summary-header {
+					position: absolute;
+					top: 30%;
+					left: 0;
+					right: 0;
+					font-size: 16px;
+				}
+				.bill-summary-figure {
+					position: absolute;
+					top: 45%;
+					height: 30%;
+					left: 12%;
+					right: 12%;
+					font-size: 24px;
+					border: 1px solid #D7D7D7;
+					.bill-text {
+						position: absolute;
+						top: calc(50% - 12px);
+						left: 0;
+						right: 0;
+					}
+				}
+				.bill-guide {
+					position: absolute;
+					left: 0;
+					right: 0;
+					bottom: 10%;
+				}
+			}
 		}
+
+	/*	.row {
+			&.main {
+				
+			}
+			#kwh-chart {
+				width: 100%;
+				height: 100%;
+			}
+			#bill-summary {
+				width: 100%;
+				height: 100%;
+			}
+			.col {
+				display: inline-block;
+				width: 40%;
+				height: 100%;
+				position: relative;
+				.bill-summary-header {
+					text-align: center;
+					font-size: 16px;
+				}
+				.bill-figure {
+					text-align: center;
+					font-size: 28px;
+					width: 90%;
+					height: 36px;
+					line-height: 26px;
+					border: 1px solid #444;
+					padding: 4px 8px 4px;
+					position: absolute;
+					top: calc(50% - 18px);
+					left: 5%;
+				}
+			}
+		}*/
+
+		/*#kwh-chart {
+			height: calc(65% - 36px);
+		}*/
 
 		.footer {
 			height: 35%;

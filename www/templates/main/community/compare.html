@@ -1,16 +1,45 @@
 ﻿<ion-view view-title="Comparison to Neighbors">
     <ion-content id="compare-container">
-        <div id="compare">
 
-            <button class="button button-block button-positive" ng-click="edit()">Add or Edit Home Information</button>
+        <div class="button-container">
+            <span id="edit-button" ng-click="goToInfoSetting()">Edit My Home Info</span>
+        </div>
 
-            <!-- <img src="img/comparetemp.jpg" /> -->
-
-
-            <div ng-repeat="data in detailDataList | filter: removeZero">
-                {{data}}
-                <div id="chart"></div>
+        <div class="elem">
+            <div class="elem-header" ng-bind="chart1Header">
+            </div>
+            <div class="elem-header unit">(unit: kWh)</div>
+            <div id="chart-1"></div>
+            <div class="elem-footer">
+                <div class="list">
+                    <div class="item">
+                        Number of people
+                        <span class="item-note">{{dataList[0].population}}</span>
+                    </div>
+                    <div class="item">
+                        My ranking
+                        <span class="item-note">{{dataList[0].ranking}}</span>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <div class="elem">
+            <div class="elem-header" ng-bind="chart2Header"></div>
+            <div id="chart-2"></div>
+            <div class="elem-footer">
+                <div class="list">
+                    <div class="item">
+                        Number of people
+                        <span class="item-note">{{dataList[1].population}}</span>
+                    </div>
+                    <div class="item">
+                        My ranking
+                        <span class="item-note">{{dataList[1].ranking}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 </ion-content>
 </ion-view>

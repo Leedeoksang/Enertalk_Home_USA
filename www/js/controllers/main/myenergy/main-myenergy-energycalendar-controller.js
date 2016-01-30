@@ -1,6 +1,6 @@
 angular.module('enertalkHomeUSA.controllers')
 	
-	.controller('EnergyCalendarCtrl', function($scope, EnergyCalendarModel) {
+	.controller('EnergyCalendarCtrl', function($scope, EnergyCalendarModel, Util, $ionicScrollDelegate) {
 		var currentYear,
 			currentMonth;
 
@@ -16,62 +16,18 @@ angular.module('enertalkHomeUSA.controllers')
 				$scope.totalUsage = (response.totalUsage / 1000000).toFixed(2);
 				$scope.forecastUsage = (response.forecastUsage / 1000000).toFixed(2);
 				$scope.dayUsage = ($scope.totalUsage / $scope.dataList.length).toFixed(2);
+				$scope.underTarget = response.underTarget;
+				$scope.oftenType = response.oftenType;
+				$scope.activeZoneFrequency = response.activeZoneFrequency;
 				makeCalendarHeader(currentYear, currentMonth);
 				makeCalendar(currentYear, currentMonth);
 			});
-		}
 
-		function getMonthName (month) {
-			var monthName = '';
-
-			if (typeof month === 'number') {
-				month = month + '';
-			}
-
-			switch (month) {
-				case '1':
-					monthName = 'January';
-					break;
-				case '2':
-					monthName = 'Febuary';
-					break;
-				case '3':
-					monthName = 'March';
-					break;
-				case '4':
-					monthName = 'April';
-					break;
-				case '5':
-					monthName = 'May';
-					break;
-				case '6':
-					monthName = 'June';
-					break;
-				case '7':
-					monthName = 'July';
-					break;
-				case '8':
-					monthName = 'August';
-					break;
-				case '9':
-					monthName = 'September';
-					break;
-				case '10':
-					monthName = 'October';
-					break;
-				case '11':
-					monthName = 'November';
-					break;
-				case '12':
-					monthName = 'December';
-					break;
-			}
-			return monthName;
 		}
 
 		function makeCalendarHeader (year, month) {
 			$scope.dayOfWeekList = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-			$scope.calendarTitle = getMonthName(month) + ' ' + year;
+			$scope.calendarTitle = Util.getMonthName(month) + ' ' + year;
 		}
 		function makeCalendar (year, month) {
 			var start = new Date(year, month - 1, 1),
@@ -92,11 +48,11 @@ angular.module('enertalkHomeUSA.controllers')
 			$scope.dateList = dateList;
 		}
 
-		// $scope.dayLabel = function (timestamp) {
-		// 	var date = new Date(timestamp);
+		$scope.dayLabel = function (timestamp) {
+			var date = new Date(timestamp);
 
-		// 	return date.getDate();
-		// };
+			return date.getDate() ? date.getDate() : '.';
+		};
 
 		$scope.button = {
 			clickLeft: function () {
@@ -109,8 +65,12 @@ angular.module('enertalkHomeUSA.controllers')
 					$scope.totalUsage = (response.totalUsage / 1000000).toFixed(2);
 					$scope.forecastUsage = (response.forecastUsage / 1000000).toFixed(2);
 					$scope.dayUsage = ($scope.totalUsage / $scope.dataList.length).toFixed(2);
+					$scope.underTarget = response.underTarget;
+					$scope.oftenType = response.oftenType;
+				$scope.activeZoneFrequency = response.activeZoneFrequency;
 					makeCalendarHeader(currentYear, currentMonth);
 					makeCalendar(currentYear, currentMonth);
+					$ionicScrollDelegate.resize();
 				});
 
 			},
@@ -124,20 +84,36 @@ angular.module('enertalkHomeUSA.controllers')
 					$scope.totalUsage = (response.totalUsage / 1000000).toFixed(2);
 					$scope.forecastUsage = (response.forecastUsage / 1000000).toFixed(2);
 					$scope.dayUsage = ($scope.totalUsage / $scope.dataList.length).toFixed(2);
+					$scope.underTarget = response.underTarget;
+					$scope.oftenType = response.oftenType;
+				$scope.activeZoneFrequency = response.activeZoneFrequency;
 					makeCalendarHeader(currentYear, currentMonth);
 					makeCalendar(currentYear, currentMonth);
-				});
-			},
-			changeCalendarType: function (type) {
-				var date = new Date(currentYear, (currentMonth - 1), 1);
-				$scope.calendarType = type || 'goal';
-				EnergyCalendarModel.getModel(date.getTime(), $scope.calendarType).then(function (response) {
-					$scope.dataList = response.dataList;
-					makeCalendarHeader(currentYear, currentMonth);
-					makeCalendar(currentYear, currentMonth);
+					$ionicScrollDelegate.resize();
 				});
 			}
 		};
 
+		$scope.changeCalendar = function (e) {
+			console.log(e);
+		};
+
+		$scope.beyondCurrent = function () {
+			var now = new Date();
+			if (currentYear === now.getFullYear() && currentMonth > now.getMonth()) {
+				return false;
+			} else {
+				return true;
+			}
+		};
+		$scope.nowCurrent = function () {
+			var now = new Date();
+			
+			if (currentYear === now.getFullYear() && currentMonth === (now.getMonth() + 1)) {
+				return true;
+			} else {
+				return false;
+			}
+		};
 		init();
 	});

@@ -6,6 +6,14 @@ angular.module('enertalkHomeUSA')
 
 	.constant('MODE', 'production')
 
+  .constant('CONVERSION', {
+    co2: 0.5222489,
+    tree: 0.1,
+    mile: 2.4,
+    waste: 0.4,
+    coal: 1.1
+  })
+
 	.constant('APIURL', (function (isDevelopment) {
 		var domain = isDevelopment ? 'http://api-staging.encoredtech.com' : 'https://api.encoredtech.com:8082';
 		return {

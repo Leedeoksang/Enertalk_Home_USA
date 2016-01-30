@@ -59,6 +59,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
       // myenergy views
       .state('main.myenergy', {
           url: '/myenergy',
+          cache: false,
           views: {
               'MyenergyContent': {
                   templateUrl: 'templates/main/myenergy/myenergy.html',
@@ -136,6 +137,16 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
           }
         }
       })
+
+      .state('main.environmental-impact', {
+        url: '/environmental-impact',
+        views: {
+          'MyenergyContent': {
+            templateUrl: 'templates/main/myenergy/environmental-impact.html',
+            controller: 'EnvironmentalImpactCtrl'
+          }
+        }
+      })
       // ------------------------------------------
 
 
@@ -175,7 +186,7 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
         url: '/compare-edit',
         views: {
             'CommunityContent': {
-                templateUrl: 'templates/main/compare-edit-unified.html',
+                templateUrl: 'templates/main/community/compare-edit-unified.html',
                 controller: 'CommCompareEditCtrl'
             }
         }
@@ -323,10 +334,31 @@ angular.module('enertalkHomeUSA', ['ionic', 'ngCordova', 'enertalkHomeUSA.contro
           controller: 'LoginSettingCtrl'
         }
       }
+    })
+
+    .state('main.billing-setting', {
+      url: '/billing-setting',
+      views: {
+        'SettingContent': {
+          templateUrl: 'templates/main/setting/billing-setting.html',
+          controller: 'BillingSettingCtrl'
+        }
+      }
     });
+    
     // --------------------------------------
 
   $urlRouterProvider.otherwise('/intro/login');
+})
+
+.filter('setDecimal', function ($filter) {
+    return function (input, places) {
+        if (isNaN(input)) {
+          return input;
+        }
+        var factor = "1" + Array(+(places > 0 && places + 1)).join("0");
+        return Math.round(input * factor) / factor;
+    };
 });
 
 angular.module('enertalkHomeUSA.controllers', []);

@@ -1,5 +1,64 @@
-<ion-view view-title="Bill Estimator">
-	<ion-content>
-		bill estimator
+<ion-view view-title="Bill Estimator" can-swipe-back="false">
+	<ion-content id="bill-estimator">
+
+		<div class="list">
+			<div class="item item-divider first">
+  			</div>
+			<div class="item">
+				Billing Period
+				<span class="item-note">
+					{{billingCycle}}
+				</span>
+			</div>
+
+			<div class="item item-divider">
+    			This month
+  			</div>
+			<div class="item">
+				Current Bill
+				<span class="item-note">
+					$ {{currentBill | setDecimal: 2}}
+				</span>
+			</div>
+			<div class="item">
+				Forecasted Bill
+				<span class="item-note">
+					$ {{forecastBill | setDecimal: 2}}
+				</span>
+			</div>
+			<div class="item">
+				Billing Rate
+				<span class="item-note">
+					{{billingRate | setDecimal: 2}}
+				</span>
+			</div>
+
+			<div class="item item-divider">
+  				Previous Months
+  			</div>
+
+  			<div id="previous-data">
+				<div class="item header">
+					<div class="row">
+						<div class="col-33 text-center">Month</div>
+						<div class="col-33 text-center">kWh</div>
+						<div class="col-33 text-center">Bill</div>
+					</div>
+				</div>
+				<div class="item content" ng-repeat="previousMonth in previousMonths">
+					<div class="row">
+						<div class="col-33 text-center">{{dayLabel(previousMonth.meteringStart, previousMonth.meteringEnd)}}</div>
+						<div class="col-33 text-center">{{kWhLabel(previousMonth.meteringPeriodUsage)}}</div>
+						<div class="col-33 text-center">$ {{billLabel(previousMonth.meteringPeriodUsage) | setDecimal: 2}}</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="item item-divider footer">
+  				Your final bill will include taxes and other charges.
+  			</div>
+
+		</div>
+
 	</ion-content>
 </ion-view>

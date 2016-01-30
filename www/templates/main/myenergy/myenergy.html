@@ -10,28 +10,38 @@
 	  			<span class="header-title">Today</span>
 	  		</div>
 
-	  		<div id="kwh-chart"></div>
-	  		
+	  		<div class="body row row-center">
+	  			<div class="col">
+			  		<div id="kwh-chart"></div>
+			  	</div>
+
+		  		<div class="col">
+			  		<div id="bill-summary">
+				  			<div class="bill-summary-header text-center">Today's Bill</div><br/>
+				  			<div class="bill-summary-figure text-center"><div class="bill-text">$ {{data.todayBill | setDecimal: 2}}</div></div>
+				  			<!-- <div class="bill-guide text-center">Your rate will increase tomorrow</div> -->
+				  	</div>
+				</div>
+	  		</div>
+
+	  		<!-- <div id="kwh-chart"></div> -->
+
 	  		<div class="footer">
 	  			<div class="footer-list">
 	  				<span class="list-image co2"></span>
-	  				<span class="list-label"><span class="highlighted">{{data.co2Emitted}}</span>  kg CO2 Emitted</span>
+	  				<span class="list-label"><span class="highlighted">{{data.co2Emitted | setDecimal: 2}}</span>  kg CO2 Emitted</span>
 	  			</div>
 	  			<div class="footer-list">
 	  				<span class="list-image tree"></span>
-	  				<span class="list-label"><span class="highlighted">{{data.treeNeeded}}</span>  Pine Trees Needed</span>
+	  				<span class="list-label"><span class="highlighted">{{data.treeNeeded | setDecimal: 1}}</span>  Pine Trees Needed</span>
 	  			</div>
-	  			<!-- <div class="footer-list">
-	  				<span class="list-image hambuger"></span>
-	  				<span class="list-label"><span class="highlighted">{{data.calories}}</span> Calories (<span class="highlighted">{{data.hambugers}}</span> hambugers)</span>
-	  			</div> -->
 
 	  		</div>
 	
 		</div>
 	  	
 	  	<div id="myenergy-nonkwh-container" ng-repeat="item in myenergyItems" ng-click="goToDetailView(item.nextState)">
-	  		<myenergy-line label="{{item.label}}" type="{{item.type}}">
+	  		<myenergy-line label="{{item.label}}" type="{{item.type}}" figure="{{item.figure}}">
 	  	</div>
 		
 		<div id="empty"></div>

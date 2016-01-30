@@ -1,4 +1,48 @@
 <ion-view view-title="Info Setting">
-	<ion-content>
+	
+	<ion-nav-buttons side="right">
+    	<button class="button" ng-click="changeInfo()">
+     		<!-- <i class="icon ion-checkmark-round"></i> -->
+     		save
+    	</button>
+    </ion-nav-buttons>
+
+	<ion-content id="info-setting">
+		
+		<div class="list">
+
+			<div class="item item-divider">For better neighbor comparison</div>
+
+			<label class="item item-input item-stacked-label">
+    			<span class="input-label">How big is your home in square feet?</span>
+    			<input type="text" placeholder="Size in Square Feet" ng-model="houseInfo.squareFeet">
+  			</label>
+
+  			<label class="item item-input item-stacked-label">
+    			<span class="input-label">How many bedrooms does your home have?</span>
+    			<input type="text" placeholder="Rooms" ng-model="houseInfo.bedrooms">
+  			</label>
+
+  			<label class="item item-input item-stacked-label">
+    			<span class="input-label">How many bathrooms does your home have?</span>
+    			<input type="text" placeholder="Bathrooms" ng-model="houseInfo.bathrooms">
+  			</label>
+
+  			<label class="item item-input item-stacked-label">
+    			<span class="input-label">How many people live in your home?</span>
+    			<input type="text" placeholder="People" ng-model="houseInfo.familyNumber">
+  			</label>
+
+  			<div class="item item-divider"></div>
+
+  			<div class="item wrap">Which of the following features does your home have?</div>
+            <ion-checkbox ng-model="houseInfo.homeFeature[0]">Do you have a garage?</ion-checkbox>
+            <ion-checkbox ng-model="houseInfo.homeFeature[1]">Do you have a jacuzzi?</ion-checkbox>
+            <ion-checkbox ng-model="houseInfo.homeFeature[2]">Do you have an electric car?</ion-checkbox>
+            <ion-checkbox ng-model="houseInfo.homeFeature[3]">Do you have a swimming pool?</ion-checkbox>
+
+            <div class="item item-divider"></div>
+		</div>
+
 	</ion-content>
 </ion-view>

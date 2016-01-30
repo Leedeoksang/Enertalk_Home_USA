@@ -1,0 +1,37 @@
+<ion-view view-title="Environmental Impact" id="environmental-impact" can-swipe-back="false">
+	<ion-content>
+
+		<div class="list">
+			<div class="item">
+				Usage consumed today:
+				<span class="item-note">{{data.todayUsage | setDecimal: 2}} kWh</span>
+			</div>
+
+			<div class="item-divider">This is equivalent to</div>
+			<div class="item item-thumbnail-left first">
+      			<img src="./img/co2.ico">
+      			{{data.co2Emitted | setDecimal: 2}} kg CO2 emitted
+    		</div>
+			<div class="item item-thumbnail-left first">
+      			<img src="./img/pinetree.jpg">
+      			{{data.treeNeeded | setDecimal: 1}} Pine Trees needed
+    		</div>
+
+			<div class="item-divider">Greenhouse gas emissions from</div>
+			<div class="item item-thumbnail-left second">
+      			<img src="./img/car.png">
+      			<span class="highlighted">{{data.co2Conversion.mile | setDecimal: 1}} Miles</span> driven by an average passenger vehicle 
+    		</div>
+			<div class="item item-thumbnail-left second">
+      			<img src="./img/wastetruck.png">
+      			<span class="highlighted">{{data.co2Conversion.waste | setDecimal: 1}} kg</span> of waste sent to the landfill
+    		</div>
+    		<div class="item item-thumbnail-left second">
+      			<img src="./img/coalburned.png">
+      			<span class="highlighted">{{data.co2Conversion.coal | setDecimal: 1}} Pounds</span> of coal burned
+    		</div>
+
+		</div>
+
+	</ion-content>
+</ion-view>

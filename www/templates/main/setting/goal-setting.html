@@ -1,4 +1,36 @@
-<ion-view view-title="Goal Setting">
+<ion-view view-title="Goal Setting" id="goalsetting">
+	
+	<ion-nav-buttons side="right">
+    	<button class="button" ng-click="changePlan()">
+     		<!-- <i class="icon ion-checkmark-round"></i> -->
+     		save
+    	</button>
+    </ion-nav-buttons>
+
 	<ion-content>
+
+		<div class="item range">
+		  <i class="icon ion-ios-bolt-outline"></i>
+		  <input type="range" name="plan" min="0" max="30" ng-change="changeUsage()" ng-model="plan.value" step="0.05">
+		  <i class="icon ion-ios-bolt"></i>
+		</div>
+
+		<div class="list">
+
+			<div class="item item-divider">Conversion</div>
+
+			<div class="item" ng-repeat="conversion in conversionList">
+				{{conversion.label}}
+				<span class="item-note">
+					<span ng-show="$index === 0">$ </span>
+					{{conversion.value}}
+					<span ng-show="$index === 1"> kWh</span>
+					<span ng-show="$index === 2"> kg</span>
+					<span ng-show="$index === 3"> </span>
+				</span>
+			</div>
+
+		</div>
+
 	</ion-content>
 </ion-view>

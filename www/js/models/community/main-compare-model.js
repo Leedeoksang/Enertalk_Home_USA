@@ -2,60 +2,43 @@ angular.module('enertalkHomeUSA.services')
 
 	.service('CompareModel', function ($q, Api, User) {
 
-	    this.getYearData = function () {
-	        var deferred = $q.defer(),
-			period = {
-			    unit: 'monthly'  //ideally monthly
-			},
-			now = new Date(),
-			start = new Date(now.getFullYear(), 0, 1); // month is zero indexed, so 0 -> January
-
-	        period.start = start.getTime();
-	        period.end = now.getTime();
-
-	        Api.getPeriodicUsage(User.accesstoken, User.uuid, period)
-			.then(function (response) {
-			    if (response.status === 200) {
-			        var dataList = refineData(response.data);
-			        deferred.resolve(dataList);
-			    } else {
-			        deferred.reject('');
-			    }
-			})
-			.catch(function (error) {
-			    deferred.reject(error);
-			});
-
-	        return deferred.promise;
-	    };
-
-	    function refineData(dataList, type) {
-	        var returnData = [],
+		this.getModel = function () {
+			var deferred = $q.defer(),
 				now = new Date(),
-				tempDate;
+				start1 = new Date(now.getFullYear(), now.getMonth(), 1),
+				start2 = new Date(now.getFullYear(), now.getMonth() - 1, 1),
+				end2 = new Date(now.getFullYear(), now.getMonth(), 1), // end2 is same as start1 (for seeing easily)
+				period1 = {
+					unit: 'monthly',
+					start: start1.getTime(),
+					end: now.getTime()
+				},
+				period2 = {
+					unit: 'monthly',
+					start: start2.getTime(),
+					end: end2.getTime()
+				},
+				state1 = 'current',
+				state2 = 'last';
 
-	        angular.forEach(dataList, function (data) {
-	            returnData.push({
-	                x: data.timestamp,
-	                y: data.unitPeriodUsage
-	            });
-	        });
+			$q.all([
+				Api.getUsageRanking(User.accesstoken, User.uuid, period1, state1),
+				Api.getUsageRanking(User.accesstoken, User.uuid, period2, state2)
+				]).then(function (responses) {
+					var returnData = [];
 
-	        if (returnData.length) {
-	            tempDate = new Date(returnData[returnData.length - 1].x);
-	            tempDate.setDate(tempDate.getDate() + 1);
-	            while (tempDate.getDate() !== 1) {
-	                returnData.push({
-	                    x: tempDate.getTime(),
-	                    y: 0
-	                });
-	                tempDate.setDate(tempDate.getDate() + 1);
-	            }
-	        }
+					if (responses[0].status === 200 && responses[1].status === 200) {
+						returnData[0] = responses[0].data.user;
+						returnData[1] = responses[1].data.user;
+						deferred.resolve(returnData);
+					} else {
+						deferred.reject('error');
+					}
+				}).catch(function (error) {
+					deferred.reject(error);
+				});
 
-	        return returnData;
-	    }
-
-
+			return deferred.promise;
+		};
 
 	});
