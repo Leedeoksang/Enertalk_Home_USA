@@ -4,7 +4,6 @@ angular.module('enertalkHomeUSA.controllers')
   		
   		function init () {
   			MyhomeDietModel.getModel().then(function (response) {
-  				console.log(response);
   				$scope.data = response;
   			});
   		}

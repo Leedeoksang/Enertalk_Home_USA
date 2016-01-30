@@ -1,0 +1,48 @@
+<ion-view view-title="Billing Setting" id="billing-setting">
+	
+	<ion-nav-buttons side="right">
+    	<button class="button" ng-click="changeInfo()">
+     		<!-- <i class="icon ion-checkmark-round"></i> -->
+     		save
+    	</button>
+    </ion-nav-buttons>
+    
+	<ion-content>
+
+		<label class="item item-input item-select">
+		    <div class="input-label">
+		    	whici state do you live?
+		    </div>
+		    <select ng-options="state as state.label for state in stateList track by state.id" ng-model="billingInfo.state">
+		    </select>
+		</label>
+
+		<label class="item item-input item-select">
+		    <div class="input-label">
+		    	which city do you live?
+		    </div>
+		    <select ng-options="city as city.label for city in billingInfo.state.cityList track by city.id" ng-model="billingInfo.city">
+		    </select>
+		</label>
+
+		<label class="item item-input item-select">
+		    <div class="input-label">
+		      	When does your billing period start?
+		    </div>
+		    <select ng-options="day as day.label for day in meteringdayList track by day.id" ng-model="billingInfo.meteringday">
+		    </select>
+		</label>
+
+		<label class="item item-input item-select">
+		    <div class="input-label">
+		      	What is your rate plan
+		    </div>
+		    <select>
+		      	<option>1</option>
+		      	<option selected>2</option>
+		      	<option>3</option>
+		    </select>
+		</label>
+
+	</ion-content>
+</ion-view>

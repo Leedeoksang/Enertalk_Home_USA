@@ -6,16 +6,11 @@ angular.module('enertalkHomeUSA.services')
 			var deferred = $q.defer(),
 				date = timestamp ? new Date(timestamp) : new Date(),
 				calendarType = type || 'goal',
-				period = {},
+				period = {
+					unit: 'hourly'
+				},
 				start = new Date(date.getFullYear(), date.getMonth(), 1),
-				end = new Date(date.getFullYear(), date.getMonth() + 1, 0),
-				data = {};
-
-			if (type === 'goal') {
-				period.unit = 'daily';
-			} else if (type === 'time') {
-				period.unit = 'hourly';
-			}
+				end = new Date(date.getFullYear(), date.getMonth() + 1, 1);
 
 			period.start = start.getTime();
 			period.end = end.getTime();
@@ -24,19 +19,16 @@ angular.module('enertalkHomeUSA.services')
 					Api.getPeriodicUsage(User.accesstoken, User.uuid, period),
 					Api.getForecastUsage(User.accesstoken, User.uuid)
 				]).then(function (responses) {
-					var tempData;
-
 						if (responses[0].status === 200) {
-							if (type === 'time') {
-								responses[0].data = Util.refineMonthData(responses[0].data);
-								tempData = refineDataForTime(responses[0].data);
-								data.dataList = responses[0].data;
-							} else {
-								tempData = refineDataForPlan(responses[0].data);
-								data.dataList = tempData.dataList;
-							}
-							data.totalUsage = tempData.totalUsage;
-						}	
+							
+							var test = 0;
+							angular.forEach(responses[0].data, function (data) {
+								test += data.unitPeriodUsage;
+							});
+
+							responses[0].data = Util.refineMonthData(responses[0].data);
+							data = refineData(responses[0].data);
+						}
 						if (responses[1].status === 200) {
 							data.forecastUsage = responses[1].data.meteringUsage;
 						}
@@ -49,33 +41,68 @@ angular.module('enertalkHomeUSA.services')
 			return deferred.promise;
 		};
 
-		function refineDataForPlan (dataList) {
+		function getMostActiveTime (dataList) {
+			var oftenType = '',
+			max = 0,
+			index = 0;
+
+			angular.forEach(dataList, function (data, i) {
+				if (data > max) {
+					max = data;
+					index = i;
+				}
+			});
+
+			if (index === 0) {
+				oftenType = 'night';
+			} else if (index === 1) {
+				oftenType = 'morning';
+			} else if (index === 2) {
+				oftenType = 'afternoon';
+			} else if (index === 3) {
+				oftenType = 'evening';
+			}
+
+			return oftenType;
+		}
+
+		function refineData (dataList) {
 			var plan = User.dailyPlan,
-				totalUsage = 0;
+				totalUsage = 0,
+				underTarget = 0,
+				activeZoneFrequency = [0, 0, 0, 0],
+				index,
+				mostActiveTime,
+				max = 0;
 
 			angular.forEach(dataList, function (data) {
 				if (data.unitPeriodUsage > plan) {
 					data.excessPlan = true;
 				} else {
 					data.excessPlan = false;
+					underTarget += 1;
 				}
+
+				if (data.activeTime === 'night') {
+					index = 0;
+				} else if (data.activeTime === 'morning') {
+					index = 1;
+				} else if (data.activeTime === 'afternoon') {
+					index = 2;
+				} else if (data.activeTime === 'evening') {
+					index = 3;
+				}
+
+				activeZoneFrequency[index] += 1;
 				totalUsage += data.unitPeriodUsage;
 			});
 
 			return {
 				dataList: dataList,
-				totalUsage: totalUsage
+				totalUsage: totalUsage,
+				underTarget: underTarget,
+				activeZoneFrequency: activeZoneFrequency,
+				oftenType: getMostActiveTime(activeZoneFrequency)
 			};
 		}
-
-		function refineDataForTime (dataList) {
-			var totalUsage = 0;
-			angular.forEach(dataList, function (data) {
-				totalUsage += data.unitPeriodUsage;
-			});
-			return {
-				totalUsage: totalUsage
-			};
-		}
-
 	});

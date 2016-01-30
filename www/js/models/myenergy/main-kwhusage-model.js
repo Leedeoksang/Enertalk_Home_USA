@@ -16,7 +16,7 @@ angular.module('enertalkHomeUSA.services')
 			Api.getPeriodicUsage(User.accesstoken, User.uuid, period)
 			.then(function (response) {
 				if (response.status === 200) {
-					var dataList = refineData2(response.data);
+					var dataList = refineData(response.data);
 					deferred.resolve(dataList);
 				} else {
 					deferred.reject('');
@@ -32,33 +32,6 @@ angular.module('enertalkHomeUSA.services')
 
 		function refineData (dataList) {
 			var returnData = [],
-				now = new Date(),
-				tempDate;
-
-			angular.forEach(dataList, function (data) {
-				returnData.push({
-					x: data.timestamp,
-					y: data.unitPeriodUsage
-				});
-			});
-			if (returnData.length) {
-				tempDate = new Date(returnData[returnData.length - 1].x);
-				tempDate.setHours(tempDate.getHours() + 1);
-				while(tempDate.getHours() !== 0) {
-					returnData.push({
-						x: tempDate.getTime(),
-						y: 0
-					});
-					tempDate.setHours(tempDate.getHours() + 1);
-					
-				}
-			}
-		
-			return returnData;
-		}
-
-		function refineData2 (dataList) {
-			var returnData = [],
 				date;
 
 			angular.forEach(dataList, function (data) {
@@ -70,7 +43,7 @@ angular.module('enertalkHomeUSA.services')
 			if (returnData.length) {
 				date = new Date(returnData[returnData.length - 1].x);
 				date.setMinutes(date.getMinutes() + 15);
-				while(date.getHours() !== 0) {
+				while(returnData.length < 96) {
 					returnData.push({
 						x: date.getTime(),
 						y: 0

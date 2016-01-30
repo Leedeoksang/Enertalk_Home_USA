@@ -1,11 +1,15 @@
 angular.module('enertalkHomeUSA.controllers')
   	
-  	.controller('MainMyenergyCtrl', function($scope, $state, $timeout, MyenergyModel, User) {
+  	.controller('MainMyenergyCtrl', function($scope, $state, $timeout, $filter, MyenergyModel, User, Util) {
   		
   		$scope.init = function (){
   			var target = document.getElementById('myenergy');
   			
   			$scope.myenergyItems = [{
+    			label: 'Monthly Bill Est.',
+    			type: 'bill-estimator',
+    			nextState: 'main.bill-estimator'
+    		},{
     			label: 'Usage Trends',
     			type: 'usage-trends',
     			nextState: 'main.usage-trends'
@@ -14,6 +18,14 @@ angular.module('enertalkHomeUSA.controllers')
     			type: 'energy-calendar',
     			nextState: 'main.energy-calendar'
     		},{
+    			label: 'Environmental Impact',
+    			type: 'environmental-impact',
+    			nextState: 'main.environmental-impact'
+    		},{
+    			label: 'My Home Diet',
+    			type: 'myhome-diet',
+    			nextState: 'main.myhome-diet'
+    		},{
     			label: 'Realtime Usage',
     			type: 'realtime-usage',
     			nextState: 'main.realtime-usage'
@@ -21,19 +33,12 @@ angular.module('enertalkHomeUSA.controllers')
     			label: 'Always On',
     			type: 'standby-power',
     			nextState: 'main.standby-power'
-    		}, {
-    			label: 'Bill Estimator',
-    			type: 'bill-estimator',
-    			nextState: 'main.bill-estimator'
-    		}, {
-    			label: 'My Home Diet',
-    			type: 'myhome-diet',
-    			nextState: 'main.myhome-diet'
     		}];
 
     		MyenergyModel.getModel().then(function (response) {
     			$scope.data = response;
     			$scope.drawChart(parseFloat($scope.data.todayUsage));
+    			$scope.myenergyItems[0].figure = '$ ' + $filter('setDecimal')($scope.data.monthBill, 2);
     		});
   		};
 
@@ -51,10 +56,19 @@ angular.module('enertalkHomeUSA.controllers')
 
 			        series: [{
 	            		name: '',
-	            		data: [todayUsage],
+	            		data: [{
+	            			y: todayUsage,
+	            			color: todayUsage < (User.dailyPlan / 1000000) ? '#33cc33' : '#cc0000'
+	            		}],
 	            		dataLabels: {
-		            		format: '<div style="text-align: center; font-size: 28px;">{y}</div>' + 
-		            		'<div style="text-align: center; font-size: 16px;">kWh</div>'
+		            		// format: '<div style="text-align: center; font-size: 24px;">{y}</div>' + 
+		            		// '<div style="text-align: center; font-size: 14px;">kWh</div>',
+		            		formatter: function () {
+		            			return '<div style="text-align: center; font-size: 24px;">'
+		            			+ $filter('setDecimal')(this.y, 2)
+		            			+ '</div><div style="text-align: center; font-size: 14px;">kWh</div>'
+		            		},
+		            		useHTML: true
 		            	}
 	        		}],
 
@@ -81,10 +95,6 @@ angular.module('enertalkHomeUSA.controllers')
 			        yAxis: {
 			        	min: 0,
 			        	max: (User.dailyPlan / 1000000),
-			        	stops: [
-			                [0.0, '#33cc33'],
-			                [1.0, '#cc0000'],
-			            ],
 			            lineWidth: 0,
 			            minorTickInterval: null,
 			            tickPixelInterval: 400,

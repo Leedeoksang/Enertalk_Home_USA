@@ -22,13 +22,15 @@ angular.module('enertalkHomeUSA.controllers')
 				plan: User.dailyPlan,
 				model: UsageTrendsModel.getMonthData,
 				index: 2
-			},{
-				label: 'year',
-				dataList: [],
-				plan: User.profile.maxLimitUsage,
-				model: UsageTrendsModel.getYearData,
-				index: 3
-			}];
+			}
+			// ,{
+			// 	label: 'year',
+			// 	dataList: [],
+			// 	plan: User.profile.maxLimitUsage,
+			// 	model: UsageTrendsModel.getYearData,
+			// 	index: 3
+			// }
+			];
 
 			$scope.dailyPlan = User.dailyPlan;
 			$scope.currentTab = $scope.tabs[0];
@@ -40,12 +42,6 @@ angular.module('enertalkHomeUSA.controllers')
 				$scope.currentTab.dataList = response;
 				drawChart();
 			});
-			// console.log($scope.detailDataList);
-			// UsageTrendsModel.getMonthData()
-			// .then(function (response) {
-			// 	console.log($scope.detailDataList);
-			// 	console.log(response);
-			// })
 		}
 
 		$scope.clickTab = function (index) {
@@ -107,8 +103,6 @@ angular.module('enertalkHomeUSA.controllers')
 	            				}
 	            			} else if (type === 'week') {
 	            				var day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-	            				console.log(date.getTime());
-	            				console.log(date.getDay());
 	            				return day[date.getDay()];
 	            			} else if (type === 'month') {
 	            				if (date.getDate() === 1) {

@@ -8,7 +8,7 @@
     			<input type="text" placeholder="ID or Phone number" ng-model="credentials.id">
   			</label>
   			<label class="item item-input">
-    			<input type="password" placeholder="password" ng-model="credentials.password">
+    			<input type="password" placeholder="Password" ng-model="credentials.password">
   			</label>
 		</div>
 
@@ -18,8 +18,10 @@
         <ion-spinner ng-if="loading"></ion-spinner>
       </button>
     </div>
+    <div class="error" ng-if="isError">Please check your ID or password.</div>
+    <div class="error" ng-if="hasNoId">Please input your ID</div>
+    <div class="error" ng-if="hasNoPassword">Please input your Password</div>
 
-    <!-- <button class="button button-block button-positive" ng-click="passwordRecovery()">Forgot your Password?</button> -->
     <div class="text-center sign-up">
         Don't have an account?
     </div>

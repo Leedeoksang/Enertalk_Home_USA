@@ -1,66 +1,83 @@
-<ion-view view-title="Monthly Overview">
-	<ion-content id="energy-calendar" has-bouncing="false">
+<ion-view view-title="Monthly Overview" can-swipe-back="false">
+	<ion-content id="energy-calendar">
 		
 		<div id="calendar-header">
 			
 			<span class="ion-chevron-left calendar-button left" ng-click="button.clickLeft()"></span>
 			<span id="calendar-date" ng-bind="calendarTitle"></span>
-			<span class="ion-chevron-right calendar-button right" ng-click="button.clickRight()"></span>
+			<span class="ion-chevron-right calendar-button right" ng-click="button.clickRight()" ng-show="beyondCurrent()"></span>
 			
 			<div id="switch-button-container">
-				<span class="calendar-switch-button" ng-class="{'clicked': calendarType === 'goal'}" ng-click="button.changeCalendarType('goal')">Goal</span>
-				<span class="calendar-switch-button" ng-class="{'clicked': calendarType === 'time'}" ng-click="button.changeCalendarType('time')">Time</span>
+				<span class="calendar-switch-button" ng-class="{'clicked': calendarType === 'goal'}" ng-click="calendarType = 'goal'">Goal</span>
+				<span class="calendar-switch-button" ng-class="{'clicked': calendarType === 'time'}" ng-click="calendarType = 'time'">Time</span>
 			</div>
 
 		</div>
 
 		<div id="calendar-container">
-			<div id="calendar">
+			
+			<div class="calendar" ng-show="calendarType === 'goal'">
 				<span class="day-elem" ng-repeat="dayOfWeek in dayOfWeekList" ng-bind="dayOfWeek"></span>
 				<span class="elem" ng-repeat="date in dateList track by $index">
-					<!--<span class="elem-header">{{dayLabel(date.timestamp)}}</span>-->
-					<span class="elem-badge" ng-class="{'green': date.excessPlan === false, 'night': date.activeTime === 'night', 'morning': date.activeTime === 'morning', 'afternoon': date.activeTime === 'afternoon', 'evening': date.activeTime === 'evening'}"></span>
+					<span class="elem-header">{{dayLabel(date.timestamp)}}</span>
+					<span class="elem-badge" ng-class="{'green': date.excessPlan === false}"></span>
 				</span>
 			</div>
-		</div>
+			
+			<div class="calendar" ng-show="calendarType === 'time'">
+				<span class="day-elem" ng-repeat="dayOfWeek in dayOfWeekList" ng-bind="dayOfWeek"></span>
+				<span class="elem" ng-repeat="date in dateList track by $index">
+					<span class="elem-header">{{dayLabel(date.timestamp)}}</span>
+					<span class="elem-badge" ng-class="{'night': date.activeTime === 'night', 'morning': date.activeTime === 'morning', 'afternoon': date.activeTime === 'afternoon', 'evening': date.activeTime === 'evening'}"></span>
+				</span>
+			</div>
 
-		
-		<div class="item item-divider">Month information</div>
+		</div>
 
 		<div class="list calendar-subcontents-container">
-			
-			<a class="item item-avatar">
-		      	<img src="./img/forecast.jpg">
-		      	<h2>Expected usage this month</h2>
-		      	<p>{{forecastUsage}} kWh</p>
-		    </a>
 
-		    <a class="item item-avatar">
-		      	<img src="./img/usage.gif">
-		      	<h2>Total usage</h2>
-		      	<p>{{totalUsage}} kWh</p>
-		    </a>
+		    <div class="item" ng-show="nowCurrent()">
+		    	Expected usage this month
+		    	<span class="item-note">
+		    		{{forecastUsage}} kWh
+		    	</span>
+		    </div>
 
-		    <a class="item item-avatar">
-		      	<img src="./img/aday.jpg">
-		      	<h2>Average usage a day</h2>
-		      	<p>{{dayUsage}} kWh</p>
-		    </a>
+		    <div class="item">
+		    	Total usage
+		    	<span class="item-note">
+		    		{{totalUsage}} kWh
+		    	</span>
+		    </div>
+
+		    <div class="item">
+		    	Average usage a day
+		    	<span class="item-note">
+		    	{{dayUsage}} kWh
+		    </span>
+		    </div>
+
+		    <div class="item">
+		    	Under target
+		    	<span class="item-note">
+		    		{{underTarget}} days
+		    	</span>
+
+		    </div>
+
+		    <div class="item">
+		    	Most Active Time
+		    	<span class="item-note">
+		    		{{oftenType}}
+		    	</span>
+				<p><span class="detail-icon night"></span>Night (12am-6am): {{activeZoneFrequency[0]}} days</p>
+				<p><span class="detail-icon morning"></span>Morning (6am-12pm): {{activeZoneFrequency[1]}} days</p>
+				<p><span class="detail-icon afternoon"></span>Afternoon (12pm-6pm): {{activeZoneFrequency[2]}} days</p>
+				<p><span class="detail-icon evening"></span>Evening (6pm-12am): {{activeZoneFrequency[3]}} days</p>
+
+		    </div>
 
 		</div>
-
-		<!--
-		<div id="calendar-subcontents-container">
-			<div class="sub-content">
-				Expected usage this month
-				<span class="sub-content-figure">{{forecastUsage}} kWh</span>
-			</div>
-			<div class="sub-content">
-				Total usage so far
-				<span class="sub-content-figure">{{totalUsage}} kWh</span>
-			</div>
-		</div>
-		-->
 
 	</ion-content>
 </ion-view>

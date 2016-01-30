@@ -1,11 +1,11 @@
-<ion-view view-title="Bill Estimator">
+<ion-view view-title="Bill Estimator" can-swipe-back="false">
 	<ion-content id="bill-estimator">
 
 		<div class="list">
 			<div class="item item-divider first">
   			</div>
 			<div class="item">
-				Billing cycle
+				Billing Period
 				<span class="item-note">
 					{{billingCycle}}
 				</span>
@@ -15,21 +15,21 @@
     			This month
   			</div>
 			<div class="item">
-				Current bill
+				Current Bill
 				<span class="item-note">
-					$ {{currentBill}}
+					$ {{currentBill | setDecimal: 2}}
 				</span>
 			</div>
 			<div class="item">
-				Forecast Bill
+				Forecasted Bill
 				<span class="item-note">
-					$ {{forecastBill}}
+					$ {{forecastBill | setDecimal: 2}}
 				</span>
 			</div>
 			<div class="item">
 				Billing Rate
 				<span class="item-note">
-					{{billingRate}}
+					{{billingRate | setDecimal: 2}}
 				</span>
 			</div>
 
@@ -45,39 +45,18 @@
 						<div class="col-33 text-center">Bill</div>
 					</div>
 				</div>
-				<div class="item content">
+				<div class="item content" ng-repeat="previousMonth in previousMonths">
 					<div class="row">
-						<div class="col-33 text-center">2015/12</div>
-						<div class="col-33 text-center">253.64</div>
-						<div class="col-33 text-center">$ 35.3</div>
-					</div>
-				</div>
-				<div class="item content">
-					<div class="row">
-						<div class="col-33 text-center">2015/11</div>
-						<div class="col-33 text-center">302.4</div>
-						<div class="col-33 text-center">$ 45.2</div>
-					</div>
-				</div>
-				<div class="item content">
-					<div class="row">
-						<div class="col-33 text-center">2015/10</div>
-						<div class="col-33 text-center">260.75</div>
-						<div class="col-33 text-center">$ 36.7</div>
-					</div>
-				</div>
-				<div class="item content">
-					<div class="row">
-						<div class="col-33 text-center">2015/9</div>
-						<div class="col-33 text-center">280.12</div>
-						<div class="col-33 text-center">$ 40.2</div>
+						<div class="col-33 text-center">{{dayLabel(previousMonth.meteringStart, previousMonth.meteringEnd)}}</div>
+						<div class="col-33 text-center">{{kWhLabel(previousMonth.meteringPeriodUsage)}}</div>
+						<div class="col-33 text-center">$ {{billLabel(previousMonth.meteringPeriodUsage) | setDecimal: 2}}</div>
 					</div>
 				</div>
 			</div>
 
-		</div>
-
-		<div class="bill-table">
+			<div class="item item-divider footer">
+  				Your final bill will include taxes and other charges.
+  			</div>
 
 		</div>
 

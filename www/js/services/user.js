@@ -81,12 +81,23 @@ angular.module('enertalkHomeUSA.services')
 		};
 
 		this.setDailyPlan = function (monthlyPlan) {
-			var now = new Date(),
-				start = new Date(now.getFullYear(), now.getMonth(), 1),
-				end = new Date(now.getFullYear(), now.getMonth() + 1, 0),
-				lengthOfThisMonth = end.getDate() - start.getDate() + 1;
+			// var now = new Date(),
+			// 	start = new Date(now.getFullYear(), now.getMonth(), 1),
+			// 	end = new Date(now.getFullYear(), now.getMonth() + 1, 0),
+			// 	lengthOfThisMonth = end.getDate() - start.getDate() + 1;
 
-			_this.dailyPlan = monthlyPlan / lengthOfThisMonth;
+			_this.dailyPlan = monthlyPlan / 30;
+		};
+
+		this.resetProfile = function () {
+			Api.getProfile(_this.accesstoken).then(function (response) {
+				if (response.status === 200) {
+					_this.proflie = response.data;
+					_this.profile = response.data;
+					_this.setDailyPlan(_this.profile.maxLimitUsage);
+					_this.hourlyPlan = _this.dailyPlan / 24;
+				}
+			});
 		};
 
 		this.getMonthData = function () {
@@ -106,5 +117,21 @@ angular.module('enertalkHomeUSA.services')
 				});
 		};
 
+		this.setUserInfo = function (userInfo) {
+			var deferred = $q.defer();
+
+			Api.setUserInfo(_this.accesstoken, userInfo).then(function (response) {
+				if (response.status === 200) {
+					deferred.resolve('success');
+				} else {
+					deferred.reject('error');
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		};
 		_this.init();
 	});

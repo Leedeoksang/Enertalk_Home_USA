@@ -9731,6 +9731,9 @@ a.button {
   -webkit-transition-duration: 0s;
   transition-duration: 0s; }
 
+/** {
+	font-weight: 500;
+}*/
 #intro-login {
   padding: 8px 12px 8px; }
   #intro-login .spinner svg {
@@ -9752,111 +9755,176 @@ a.button {
   #intro-login .list .item-input {
     border-radius: 12px;
     margin-bottom: 20px; }
+  #intro-login .error {
+    text-align: center;
+    color: #ff0000; }
   #intro-login .sign-up {
     padding-top: 14px; }
 
-#myenergy .scroll {
-  height: 100%;
-  padding-top: 12px; }
-
-#myenergy .scroll-bar {
-  visibility: hidden; }
-
-#myenergy #myenergy-kwh-container {
-  height: 60%;
-  border: 1px solid #A0A3B2;
-  border-radius: 8px;
-  margin-bottom: 4px;
-  margin-left: 12px;
-  margin-right: 12px;
-  box-shadow: 2px 2px 5px #A0A3B2; }
-  #myenergy #myenergy-kwh-container .header {
-    height: 36px;
-    text-align: center;
-    position: relative; }
-    #myenergy #myenergy-kwh-container .header .header-title {
-      line-height: 36px;
-      font-size: 20px; }
-    #myenergy #myenergy-kwh-container .header .edit-button {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      position: absolute;
-      right: 8px;
-      top: 6px;
-      background-color: black; }
-  #myenergy #myenergy-kwh-container #kwh-chart {
-    height: calc(65% - 36px); }
-  #myenergy #myenergy-kwh-container .footer {
-    height: 35%; }
-    #myenergy #myenergy-kwh-container .footer .footer-list {
-      height: 50%;
-      padding-left: 18px;
+#myenergy {
+  color: #444; }
+  #myenergy .scroll {
+    height: 100%;
+    padding-top: 12px; }
+  #myenergy .scroll-bar {
+    visibility: hidden; }
+  #myenergy #myenergy-kwh-container {
+    height: 60%;
+    border: 1px solid #A0A3B2;
+    border-radius: 8px;
+    margin-bottom: 4px;
+    margin-left: 12px;
+    margin-right: 12px;
+    box-shadow: 2px 2px 5px #A0A3B2;
+    /*	.row {
+			&.main {
+				
+			}
+			#kwh-chart {
+				width: 100%;
+				height: 100%;
+			}
+			#bill-summary {
+				width: 100%;
+				height: 100%;
+			}
+			.col {
+				display: inline-block;
+				width: 40%;
+				height: 100%;
+				position: relative;
+				.bill-summary-header {
+					text-align: center;
+					font-size: 16px;
+				}
+				.bill-figure {
+					text-align: center;
+					font-size: 28px;
+					width: 90%;
+					height: 36px;
+					line-height: 26px;
+					border: 1px solid #444;
+					padding: 4px 8px 4px;
+					position: absolute;
+					top: calc(50% - 18px);
+					left: 5%;
+				}
+			}
+		}*/
+    /*#kwh-chart {
+			height: calc(65% - 36px);
+		}*/ }
+    #myenergy #myenergy-kwh-container .header {
+      height: 36px;
+      text-align: center;
       position: relative; }
-      #myenergy #myenergy-kwh-container .footer .footer-list .list-image {
+      #myenergy #myenergy-kwh-container .header .header-title {
+        line-height: 36px;
+        font-size: 20px; }
+      #myenergy #myenergy-kwh-container .header .edit-button {
         display: inline-block;
-        width: 48px;
-        height: 48px;
+        width: 24px;
+        height: 24px;
         position: absolute;
-        top: calc(50% - 24px); }
-        #myenergy #myenergy-kwh-container .footer .footer-list .list-image.co2 {
-          content: url("../img/co2.ico"); }
-        #myenergy #myenergy-kwh-container .footer .footer-list .list-image.tree {
-          content: url("../img/pinetree.jpg"); }
-        #myenergy #myenergy-kwh-container .footer .footer-list .list-image.hambuger {
-          content: url("../img/hambuger.png"); }
-      #myenergy #myenergy-kwh-container .footer .footer-list .list-label {
-        position: absolute;
-        top: calc(50% - 10px);
-        padding-left: 60px;
-        font-size: 16px; }
-        #myenergy #myenergy-kwh-container .footer .footer-list .list-label .highlighted {
-          font-size: 20px; }
-
-#myenergy #myenergy-nonkwh-container {
-  height: 12%; }
-  #myenergy #myenergy-nonkwh-container.activated {
-    background-color: #f0f0f0; }
-
-#myenergy #empty {
-  height: 24px; }
+        right: 8px;
+        top: 6px;
+        background-color: black; }
+    #myenergy #myenergy-kwh-container .body {
+      height: calc(65% - 36px); }
+      #myenergy #myenergy-kwh-container .body .col {
+        height: 100%; }
+      #myenergy #myenergy-kwh-container .body #kwh-chart {
+        width: 100%;
+        height: 100%; }
+      #myenergy #myenergy-kwh-container .body #bill-summary {
+        width: 100%;
+        height: 100%;
+        position: relative; }
+        #myenergy #myenergy-kwh-container .body #bill-summary .bill-summary-header {
+          position: absolute;
+          top: 30%;
+          left: 0;
+          right: 0;
+          font-size: 16px; }
+        #myenergy #myenergy-kwh-container .body #bill-summary .bill-summary-figure {
+          position: absolute;
+          top: 45%;
+          height: 30%;
+          left: 12%;
+          right: 12%;
+          font-size: 24px;
+          border: 1px solid #D7D7D7; }
+          #myenergy #myenergy-kwh-container .body #bill-summary .bill-summary-figure .bill-text {
+            position: absolute;
+            top: calc(50% - 12px);
+            left: 0;
+            right: 0; }
+        #myenergy #myenergy-kwh-container .body #bill-summary .bill-guide {
+          position: absolute;
+          left: 0;
+          right: 0;
+          bottom: 10%; }
+    #myenergy #myenergy-kwh-container .footer {
+      height: 35%; }
+      #myenergy #myenergy-kwh-container .footer .footer-list {
+        height: 50%;
+        padding-left: 18px;
+        position: relative; }
+        #myenergy #myenergy-kwh-container .footer .footer-list .list-image {
+          display: inline-block;
+          width: 48px;
+          height: 48px;
+          position: absolute;
+          top: calc(50% - 24px); }
+          #myenergy #myenergy-kwh-container .footer .footer-list .list-image.co2 {
+            content: url("../img/co2.ico"); }
+          #myenergy #myenergy-kwh-container .footer .footer-list .list-image.tree {
+            content: url("../img/pinetree.jpg"); }
+          #myenergy #myenergy-kwh-container .footer .footer-list .list-image.hambuger {
+            content: url("../img/hambuger.png"); }
+        #myenergy #myenergy-kwh-container .footer .footer-list .list-label {
+          position: absolute;
+          top: calc(50% - 10px);
+          padding-left: 60px;
+          font-size: 16px; }
+          #myenergy #myenergy-kwh-container .footer .footer-list .list-label .highlighted {
+            font-size: 20px; }
+  #myenergy #myenergy-nonkwh-container {
+    height: 12%; }
+    #myenergy #myenergy-nonkwh-container.activated {
+      background-color: #f0f0f0; }
+  #myenergy #empty {
+    height: 24px; }
 
 #kwh-usage .scroll {
   height: 100%; }
 
-#kwh-usage .list-header {
-  height: 36px;
-  line-height: 36px;
-  background-color: #f5f5f5;
-  margin-top: 0px; }
+#kwh-usage .list .item {
+  border: 0px;
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top: 8px;
+  padding-bottom: 8px; }
+  #kwh-usage .list .item .item-note {
+    font-size: 18px; }
 
-#kwh-usage .list {
-  height: calc(35% - 36px);
-  overflow-y: scroll;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch; }
-  #kwh-usage .list .item {
-    /*border: 0px;*/ }
-    #kwh-usage .list .item .item-note {
-      font-size: 18px; }
+#kwh-usage .list .item-divider {
+  border-top: 0px; }
 
 #kwh-usage #main-content {
-  height: 65%;
-  padding-top: 24px;
-  padding-bottom: 24px; }
+  height: 70%; }
   #kwh-usage #main-content #guide {
-    height: 50px;
     padding-top: 4px;
+    padding-bottom: 4px;
     padding-left: 2px;
     margin-left: 18px;
     padding-right: 2px;
     margin-right: 18px;
     font-size: 16px;
-    color: #878787;
     text-align: center;
-    background-color: #4d94ff;
+    background-color: rgba(101, 204, 0, 0.3);
     border-radius: 14px;
-    color: #FFFFFF; }
+    color: #444; }
   #kwh-usage #main-content #chart-container {
     width: 100%;
     height: calc(100% - 50px); }
@@ -9866,11 +9934,11 @@ a.button {
 
 #usage-trends .tab-item {
   font-size: 16px;
-  background-color: #cccccc;
-  color: #666666; }
+  background-color: #f5f5f5; }
   #usage-trends .tab-item.active {
     font-weight: bold;
-    opacity: 0.7; }
+    background-color: #FFFFFF;
+    color: #444; }
 
 #usage-trends #usage-trends-detail {
   padding-top: 8px 12px 8px; }
@@ -9901,12 +9969,12 @@ a.button {
       width: 100%;
       height: 50px;
       line-height: 50px;
-      border-bottom: 1px solid #cccccc; }
+      border-bottom: 1px solid #e7eef5; }
       #usage-trends #usage-trends-detail #detail .detail-content.active {
         background-color: #e7eef5; }
       #usage-trends #usage-trends-detail #detail .detail-content.header {
-        background-color: #cccccc;
-        color: #666666; }
+        background-color: #D7D7D7;
+        color: #000; }
       #usage-trends #usage-trends-detail #detail .detail-content .elem {
         width: 24%;
         font-size: 16px;
@@ -9928,25 +9996,32 @@ a.button {
 #energy-calendar #calendar-header {
   text-align: center;
   color: #676767;
-  height: 30px;
-  line-height: 30px;
+  height: 60px;
   font-size: 16px;
   position: relative;
-  padding-top: 20px; }
+  padding-top: 20px;
+  padding-bottom: 30px; }
   #energy-calendar #calendar-header .calendar-button {
     display: inline-block;
-    width: 24px;
-    height: 24px; }
+    width: 36px;
+    height: 24px;
+    position: absolute; }
+    #energy-calendar #calendar-header .calendar-button.left {
+      left: 0;
+      margin-left: 24px; }
+    #energy-calendar #calendar-header .calendar-button.right {
+      right: 0;
+      margin-right: 24px; }
     #energy-calendar #calendar-header .calendar-button.activated {
       opacity: 0.3; }
   #energy-calendar #calendar-header #switch-button-container {
     position: absolute;
-    top: 0;
+    bottom: -15px;
     right: 0;
     padding-right: 24px; }
     #energy-calendar #calendar-header #switch-button-container .calendar-switch-button {
       display: inline-block;
-      width: 30px;
+      width: 36px;
       height: 20px;
       line-height: 18px;
       font-size: 10px;
@@ -9962,47 +10037,54 @@ a.button {
     padding-right: 12px; }
 
 #energy-calendar #calendar-container {
-  height: calc(60% - 50px);
+  height: 60%;
   padding-left: 24px;
   padding-right: 24px;
   padding-bottom: 24px;
-  padding-top: 24px; }
-  #energy-calendar #calendar-container #calendar {
-    height: 100%; }
-    #energy-calendar #calendar-container #calendar .day-elem {
+  padding-top: 24px;
+  margin-bottom: 12px; }
+  #energy-calendar #calendar-container .calendar {
+    height: 100%;
+    width: 100%; }
+    #energy-calendar #calendar-container .calendar .day-elem {
       display: inline-block;
-      width: calc((100% - 28px) / 7);
-      text-align: center;
-      font-size: 12px;
+      width: calc(100% / 7);
       height: 20px;
-      margin-left: 2px;
-      margin-right: 2px; }
-    #energy-calendar #calendar-container #calendar .elem {
-      display: inline-block;
-      width: calc((100% - 28px) / 7);
-      height: calc((100% - 44px) / 6);
       text-align: center;
-      border: 0.1em solid #cccccc;
-      border-radius: 4px;
-      margin: 2px; }
-      #energy-calendar #calendar-container #calendar .elem .elem-header {
+      font-size: 12px; }
+    #energy-calendar #calendar-container .calendar .elem {
+      display: inline-block;
+      width: calc(100% / 7);
+      height: calc((100% - 20px) / 6);
+      text-align: center;
+      border: 1px solid #cccccc;
+      position: relative; }
+      #energy-calendar #calendar-container .calendar .elem .elem-header {
         display: block;
-        font-size: 8px; }
-      #energy-calendar #calendar-container #calendar .elem .elem-badge {
+        font-size: 8px;
+        /*position: absolute;
+					left: 0;
+					right: 0;
+					margin: 0 auto;*/ }
+      #energy-calendar #calendar-container .calendar .elem .elem-badge {
         display: inline-block;
-        /*width: 80%;*/
-        height: 80%; }
-        #energy-calendar #calendar-container #calendar .elem .elem-badge.green {
+        height: 50%;
+        position: absolute;
+        bottom: 4px;
+        left: 0;
+        right: 0;
+        margin: 0 auto; }
+        #energy-calendar #calendar-container .calendar .elem .elem-badge.green {
           content: url("../img/green.png"); }
-        #energy-calendar #calendar-container #calendar .elem .elem-badge.morning {
+        #energy-calendar #calendar-container .calendar .elem .elem-badge.morning {
           content: url("../img/morning.png"); }
-        #energy-calendar #calendar-container #calendar .elem .elem-badge.afternoon {
+        #energy-calendar #calendar-container .calendar .elem .elem-badge.afternoon {
           content: url("../img/afternoon.png"); }
-        #energy-calendar #calendar-container #calendar .elem .elem-badge.evening {
+        #energy-calendar #calendar-container .calendar .elem .elem-badge.evening {
           content: url("../img/evening.png"); }
-        #energy-calendar #calendar-container #calendar .elem .elem-badge.night {
+        #energy-calendar #calendar-container .calendar .elem .elem-badge.night {
           content: url("../img/night.png"); }
-      #energy-calendar #calendar-container #calendar .elem.empty {
+      #energy-calendar #calendar-container .calendar .elem.empty {
         background-color: #878787;
         opacity: 0.3; }
 
@@ -10010,9 +10092,9 @@ a.button {
   /*height: calc(40% - 30px);*/
   /*overflow-y: scroll;
 		overflow-x: hidden;
-		-webkit-overflow-scrol*/
-  ling: touch;
-  /*.sub-content {
+		-webkit-overflow-scrolling: touch;
+
+		.sub-content {
 			height: 50%;
 			padding-left: 12px;
 			padding-right: 12px;
@@ -10029,6 +10111,22 @@ a.button {
 				right: 12px;
 			}
 		}*/ }
+  #energy-calendar .calendar-subcontents-container .item p {
+    padding-top: 4px; }
+  #energy-calendar .calendar-subcontents-container .item .detail-icon {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    vertical-align: middle;
+    margin-right: 8px; }
+    #energy-calendar .calendar-subcontents-container .item .detail-icon.night {
+      content: url("../img/night.png"); }
+    #energy-calendar .calendar-subcontents-container .item .detail-icon.morning {
+      content: url("../img/morning.png"); }
+    #energy-calendar .calendar-subcontents-container .item .detail-icon.afternoon {
+      content: url("../img/afternoon.png"); }
+    #energy-calendar .calendar-subcontents-container .item .detail-icon.evening {
+      content: url("../img/evening.png"); }
 
 #realtime-usage-modal {
   height: calc(100% - 24px); }
@@ -10060,8 +10158,17 @@ a.button {
     padding-top: 24px; }
     #myhome-diet .list .item-thumbnail-left h2 {
       font-size: 16px; }
+    #myhome-diet .list .item-thumbnail-left .icon-have {
+      height: 40px;
+      line-height: 40px; }
     #myhome-diet .list .item-thumbnail-left p {
       font-size: 20px; }
+      #myhome-diet .list .item-thumbnail-left p .man-woman-icon {
+        display: inline-block;
+        width: 48px;
+        height: 36px;
+        vertical-align: middle;
+        content: url("../img/man-woman.jpg"); }
   #myhome-diet .list .item .item-note {
     font-size: 20px; }
 
@@ -10074,6 +10181,11 @@ a.button {
     font-weight: bold; }
   #bill-estimator .list .item-divider.first {
     border-top: 0px; }
+  #bill-estimator .list .item-divider.footer {
+    font-size: 10px;
+    text-align: center;
+    border: 0px;
+    color: #444; }
   #bill-estimator #previous-data .item {
     padding: 4px 8px 4px; }
     #bill-estimator #previous-data .item.content {
@@ -10099,21 +10211,121 @@ a.button {
     overflow-y: scroll;
     -webkit-overflow-scrolling: touch; }
 
-#compare {
-  font-size: 20px;
-  background: linear-gradient(white, pink);
-  height: 100%; }
-  #compare .scroll {
+#compare-container {
+  margin-top: 12px; }
+  #compare-container .scroll {
     height: 100%; }
-  #compare .button {
-    margin-bottom: 50%;
-    margin-top: 5%; }
-  #compare h4 {
-    margin-bottom: 5%;
-    margin-top: 5%;
+  #compare-container .button-container {
+    height: 24px;
+    line-height: 24px;
+    text-align: right;
+    padding-right: 16px;
+    font-size: 12px;
+    margin-bottom: 24px; }
+    #compare-container .button-container #edit-button {
+      display: inline-block;
+      padding-left: 8px;
+      padding-right: 8px;
+      color: #676767;
+      border: 1px solid #676767; }
+      #compare-container .button-container #edit-button.activated {
+        background-color: #676767;
+        color: #FFFFFF; }
+  #compare-container .elem {
+    height: 50%;
+    border-bottom: 1px solid #D7D7D7;
+    padding-top: 24px; }
+    #compare-container .elem .elem-header {
+      height: 10%;
+      text-align: center; }
+      #compare-container .elem .elem-header.unit {
+        height: 20px;
+        line-height: 20px;
+        text-align: right;
+        padding-right: 24px; }
+    #compare-container .elem .elem-footer {
+      height: 40%; }
+      #compare-container .elem .elem-footer .item {
+        border: 0px;
+        height: 36px;
+        padding-top: 0px;
+        padding-bottom: 0px;
+        font-size: 14px; }
+        #compare-container .elem .elem-footer .item .item-note {
+          font-size: 18px; }
+    #compare-container .elem #chart-1 {
+      width: 100%;
+      height: 50%; }
+    #compare-container .elem #chart-2 {
+      width: 100%;
+      height: 50%; }
+
+#compete-container {
+  position: relative; }
+  #compete-container .scroll {
+    height: 100%; }
+  #compete-container .guide {
+    width: 300px;
+    position: absolute;
+    top: 45%;
+    left: calc((100% - 300px) / 2);
+    font-size: 16px; }
+
+#compare-edit {
+  background: linear-gradient(white, #E82486); }
+  #compare-edit h4 {
+    margin-bottom: 3%;
+    margin-top: 3%;
     text-align: center; }
-  #compare img {
-    max-width: 100%; }
+
+#home-dr .scroll {
+  height: 100%; }
+
+#home-dr #guide {
+  width: 300px;
+  font-size: 16px;
+  position: absolute;
+  top: 45%;
+  left: calc((100% - 300px) / 2);
+  text-align: center; }
+
+#environmental-impact .item-divider {
+  padding-left: 16px;
+  background-color: #FFFFFF;
+  border: 0px;
+  font-size: 16px;
+  font-weight: normal;
+  color: #444; }
+
+#environmental-impact .item {
+  font-size: 16px;
+  border: 0px; }
+  #environmental-impact .item .item-note {
+    font-size: 24px;
+    font-weight: bold; }
+
+#environmental-impact .item-thumbnail-left.first {
+  min-height: 60px;
+  line-height: 60px;
+  padding-top: 0px;
+  padding-bottom: 0px; }
+  #environmental-impact .item-thumbnail-left.first h2 {
+    height: 100%; }
+  #environmental-impact .item-thumbnail-left.first img {
+    max-width: 50px;
+    max-height: 50px;
+    left: 25px;
+    top: 5px; }
+
+#environmental-impact .item-thumbnail-left.second {
+  padding-top: 32px;
+  padding-left: 120px;
+  white-space: normal; }
+  #environmental-impact .item-thumbnail-left.second img {
+    max-width: 90px; }
+
+#environmental-impact .item-thumbnail-left .highlighted {
+  font-weight: bold; }
 
 #setting {
   background-color: #f5f5f5; }
@@ -10126,8 +10338,26 @@ a.button {
   #setting #setting-container .ion-ios-arrow-forward {
     color: #878787; }
 
-#info-setting {
-  background-color: #f5f5f5; }
+#info-setting .item.wrap {
+  white-space: normal; }
+
+#info-setting .item-checkbox {
+  border: 0px; }
+
+.spinner svg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto; }
+
+#goalsetting {
+  height: 100%; }
+  #goalsetting .scroll {
+    height: 100%; }
+  #goalsetting .list .item .item-note {
+    font-size: 18px; }
 
 #main-myenergy-line {
   margin-bottom: 8px;
@@ -10163,8 +10393,24 @@ a.button {
         content: url("../img/bill_estimator.png"); }
       #main-myenergy-line .line-container .line-image.myhome-diet {
         content: url("../img/home.png"); }
+      #main-myenergy-line .line-container .line-image.environmental-impact {
+        content: url("../img/environmental_impact.png"); }
     #main-myenergy-line .line-container .line-label {
       position: absolute;
       top: calc(50% - 10px);
       padding-left: 72px;
-      font-size: 16px; }
+      font-size: 14px; }
+    #main-myenergy-line .line-container .line-figure {
+      position: absolute;
+      top: calc(50% - 10px);
+      right: 60px;
+      font-size: 16px;
+      font-weight: bold; }
+    #main-myenergy-line .line-container .line-icon {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      position: absolute;
+      right: 12px;
+      font-size: 18px;
+      top: calc(50% - 9px); }

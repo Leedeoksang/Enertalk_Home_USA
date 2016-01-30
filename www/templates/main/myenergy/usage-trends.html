@@ -1,6 +1,6 @@
-<ion-view view-title="Usage Trends" id="usage-trends">
+<ion-view view-title="Usage Trends" id="usage-trends" can-swipe-back="false">
 	
-	<div class="tabs-top tabs-color-light">
+	<div class="tabs-top">
 	    <div class="tabs">
 	    	<a class="tab-item" ng-repeat="tab in tabs" ng-bind="tab.label" ng-class="{'active': tab.label === currentTab.label}" ng-click="clickTab($index)">
 	    	</a>  	

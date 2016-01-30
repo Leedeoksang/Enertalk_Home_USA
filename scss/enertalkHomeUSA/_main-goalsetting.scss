@@ -1,0 +1,24 @@
+
+	.spinner svg {
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		margin: auto;
+	}
+#goalsetting {
+	height: 100%;
+
+	.scroll {
+		height: 100%;
+	}
+
+	.list {
+		.item {
+			.item-note {
+				font-size: 18px;
+			}
+		}
+	}
+}

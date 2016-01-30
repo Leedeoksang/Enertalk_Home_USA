@@ -5,27 +5,53 @@ angular.module('enertalkHomeUSA.controllers')
 		$scope.dailyPlan = (User.dailyPlan / 1000000).toFixed(2);
 
 		function init () {
+			$scope.guideTexts = [
+				['Under Target. Doing great!', 'On Target. Doing OK', 'Sligthly Over Target. Watch your usage', 'Rapidly using your energy! Reduce your usage'],
+				['Getting close to your daily limit!', 'Exceeded your daily limit']
+			];
 
-			KwhUsageModel.getDayData()
-			.then(function (response) {
+			KwhUsageModel.getDayData().then(function (response) {
 				var totalUsage = 0;
+				
 				angular.forEach(response, function (data) {
 					totalUsage += data.y;
 				});
-				
 				$scope.dataList = response;
 				$scope.todayUsage = (totalUsage / 1000000).toFixed(2);
-				$scope.remaining = ($scope.dailyPlan - $scope.todayUsage).toFixed(2);
-				$scope.overage = ($scope.todayUsage - $scope.dailyPlan).toFixed(2);
+				$scope.remaining = ($scope.dailyPlan - $scope.todayUsage) > 0 ? ($scope.dailyPlan - $scope.todayUsage).toFixed(2) : 0;
+				$scope.overage = ($scope.todayUsage - $scope.dailyPlan) > 0 ? ($scope.todayUsage - $scope.dailyPlan).toFixed(2) : 0;
+				$scope.guideline = $scope.dataList.length * $scope.dailyPlan / 96;
 				getGuideSentence();
 				renderChart();
 			});
 		}
 
+		function getGuideSentence () {
+			var goalPercent = $scope.todayUsage / $scope.dailyPlan,
+				guidelinePercent = $scope.todayUsage / $scope.guideline;
+
+			if (goalPercent >= 0.95) {
+				if (goalPercent < 1) {
+					$scope.guide = $scope.guideTexts[1][0];
+				} else {
+					$scope.guide = $scope.guideTexts[1][1];
+				}
+			} else if (goalPercent < 0.95) {
+				if (guidelinePercent < 0.9) {
+					$scope.guide = $scope.guideTexts[0][0];
+				} else if (guidelinePercent < 1) {
+					$scope.guide = $scope.guideTexts[0][1];
+				} else if (guidelinePercent < 1.1) {
+					$scope.guide = $scope.guideTexts[0][2];
+				} else if (guidelinePercent >= 1.1) {
+					$scope.guide = $scope.guideTexts[0][3];
+				}
+			}
+		}
+
 		function renderChart () {
 			var barOptions = {
 				chart: {
-		            type: 'column',
 		            polar: true,
 		            renderTo: 'chart'
 		        },
@@ -33,7 +59,7 @@ angular.module('enertalkHomeUSA.controllers')
 		            text: ''
 		        },
 		        pane: {
-		        	size: '90%'
+		        	size: '80%'
 		        },
 		        xAxis: {
 		            title: {
@@ -43,7 +69,8 @@ angular.module('enertalkHomeUSA.controllers')
 		            labels: {
 	            		enabled: true
 		            },
-		            tickWidth: 1
+		            tickWidth: 1,
+		            tickInterval: 3600 * 1000 * 6
 		        },
 		        yAxis: {
 		            min: 0,
@@ -55,33 +82,18 @@ angular.module('enertalkHomeUSA.controllers')
 		            },
 		            gridLineWidth: 0,
 		            endOnTick: false
-		            // plotLines: [{
-	             //        value: User.dailyPlan / 24,
-	             //        color: '#999999',
-	             //        width: 2,
-	             //        label: {
-	             //        	enabled: false
-	             //            // text: 'daily plan'
-	             //        }
-              //   	}]
 		        },
 		        tooltip: {
 		       			enabled: false
 		        },
 		        plotOptions: {
-		        	// area: {
-		        	// 	lineWidth: 0,
-		        	// 	marker: {
-		        	// 		enabled: false
-		        	// 	}
-		        	// }
-		            // bar: {
-		            //     dataLabels: {
-		            //         enabled: false
-		            //     }
-		            // }
 		            series: {
 		            	pointPlacement: 'on'
+		            },
+		            line: {
+		            	marker: {
+		            		enabled: false
+		            	}
 		            }
 		        },
 		        legend: {
@@ -90,8 +102,10 @@ angular.module('enertalkHomeUSA.controllers')
 		        credits: {
 		            enabled: false
 		        },
-		        series: [{
-		        	name: '',
+		        series: [
+		        {
+		        	name: 'today',
+		        	type: 'column',
 		        	data: $scope.dataList,
 		        	color: '#2D71E7'
 		        }]
@@ -105,19 +119,6 @@ angular.module('enertalkHomeUSA.controllers')
 
 			$scope.chart = new Highcharts.chart(barOptions)
 		}
-
-		function getGuideSentence () {
-			
-		}
-		
-		// $scope.test = function (e) {
-		// 	var target = document.getElementById('chart'),
-		// 		x = e.gesture.deltaX,
-		// 		pageX = e.gesture.center.pageX;
-
-		// 		target.style.transform = 'translateX(' + (pageX + x) + 'px)';
-		// 	// }
-		// };
 
 		init();
 	});

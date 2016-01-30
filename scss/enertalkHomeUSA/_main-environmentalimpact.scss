@@ -1,0 +1,47 @@
+#environmental-impact {
+	
+	.item-divider {
+		padding-left: 16px;
+		background-color: #FFFFFF;
+		border: 0px;
+		font-size: 16px;
+		font-weight: normal;
+		color: #444;
+	}
+	.item {
+		font-size: 16px;
+		border: 0px;
+		.item-note {
+			font-size: 24px;
+			font-weight: bold;
+		}
+	}
+	.item-thumbnail-left {
+		&.first {
+			min-height: 60px;
+			line-height: 60px;
+			padding-top: 0px;
+			padding-bottom: 0px;
+			h2 {
+				height: 100%;
+			}
+			img {
+				max-width: 50px;
+				max-height: 50px;
+				left: 25px;
+				top: 5px;
+			}
+		}
+		&.second {
+			padding-top: 32px;
+			padding-left: 120px;
+			white-space: normal;
+			img {
+				max-width: 90px;
+			}
+		}
+		.highlighted {
+			font-weight: bold;
+		}
+	}
+}

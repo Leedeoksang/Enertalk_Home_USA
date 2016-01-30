@@ -1,3 +1,11 @@
 #info-setting {
-	background-color: #f5f5f5;
+	.item {
+		&.wrap {
+			white-space: normal
+		}
+	}
+	.item-checkbox {
+		border: 0px;
+	}
+
 }

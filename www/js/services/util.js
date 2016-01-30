@@ -1,6 +1,7 @@
 angular.module('enertalkHomeUSA.services')
 
-  .service('Util', function ($window) {
+  .service('Util', function ($window, $ionicPopup, CONVERSION) {
+    var _this = this;
 
     this.querystring = {
       stringify: function (obj) {
@@ -59,6 +60,140 @@ angular.module('enertalkHomeUSA.services')
       remove: function(key) {
         delete $window.localStorage[key];
       }
+    };
+
+    this.bill = {
+      getBill: function (kWh) {
+        var bill = 0,
+          state = _this.localStorage.getObject('billingInfo').state;
+        
+        if (!state) {
+          return undefined;
+        } else if (state.label === 'CA') {
+          bill = _this.bill.billCalculation1(kWh);
+        } else if (state.label == 'MA') {
+          bill = _this.bill.billCalculation2(kWh);
+        } 
+
+        return bill;
+      },
+      getBillRate: function (kWh) {
+        var rate = '',
+          state = _this.localStorage.getObject('billingInfo').state;
+
+          if (!state) {
+            return undefined;
+          } else if (state.label === 'CA') {
+            rate = _this.bill.billRate1(kWh);
+          } else if (state.label === 'MA') {
+            rate = _this.bill.billRate2()
+          }
+
+        return rate;
+      },
+      billCalculation1: function (kWh) {
+        var bill = 0;
+        if (kWh < 0) {
+          kWh = 0;
+        }
+        if (kWh >= 0 && kWh < 700) {
+          bill = kWh * 0.14799;
+        } else if (kWh >= 700 && kWh < 2100) {
+          bill = (700 * 0.14799 + (kWh - 700) * 0.176);
+        } else {
+          bill = 0;
+        }
+        return bill;
+      },
+      billCalculation2: function (kWh) {
+        var bill = 0;
+        if (kWh < 0) {
+          kWh = 0;
+        }
+        return kWh * 0.1873;
+      },
+      billRate1: function (kWh) {
+        var Tier = 1;
+        if (kWh < 0) {
+          kWh = 0;
+        }
+        if (kWh >= 0 && kWh < 700) {
+          Tier = 1;
+        } else if (kWh >= 700 && kWh < 2100) {
+          Tier = 2;
+        } else {
+          Tier = 3;
+        }
+        return 'Tier' + Tier;
+      },
+      billRate2: function () {
+        return 'Flat Rate';
+      }
+    };
+
+    this.loadingPopup = {
+      show: function () {
+        var popup = $ionicPopup.show({
+          template: '<ion-spinner></ion-spinner>'
+        });
+
+        return popup;
+      },
+      success: function () {
+        $ionicPopup.show({
+          title: 'Finished',
+          buttons: [{
+            text: 'OK'
+          }]
+        });
+      },
+      fail: function () {
+        $ionicPopup.show({
+          title: 'Cancled',
+          buttons: [{
+            text: 'OK'
+          }]
+        });
+      }
+    };
+
+    this.conversion = {
+      co2: function (figure, type) {
+        if (type === 'k' || !type) { 
+          return figure * CONVERSION.co2;
+        } else {
+          return (figure * CONVERSION.co2) / 1000000;
+        }
+      },
+      tree: function (figure, type) {
+        if (type === 'k' || !type) {
+          return figure * CONVERSION.tree;
+        } else {
+          return (figure * CONVERSION.tree) / 1000000;
+        }
+      },
+      mile: function (co2kg) {
+        // be careful! Unit is 'kg'
+        return co2kg * CONVERSION.mile;
+      },
+      waste: function (co2kg) {
+        // be careful! Unit is 'kg'
+        return co2kg * CONVERSION.waste;
+      },
+      coal: function (co2kg) {
+        // be careful! Unit is 'kg'
+        return co2kg * CONVERSION.coal;
+      }
+    };
+
+    this.getMonthName = function (month) {
+      var monthName = '',
+        monthList = ['January', 'Febuary', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+      if (typeof month === 'number') {
+        month = month + '';
+      }
+      return monthList[month - 1];
     };
 
     this.refineMonthData = function (dataList) {

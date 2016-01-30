@@ -1,40 +1,51 @@
-<ion-view view-title="MyHome Diet">
+<ion-view view-title="MyHome Diet" can-swipe-back="false">
 	<ion-content id="myhome-diet">
 
 		<div class="list">
 			<div class="item">
 				Usage consumed today
 				<span class="item-note">
-					{{data.kWh}} kWh
+					{{data.kWh | setDecimal: 2}} kWh
 				</span>
 			</div>
 
 			<div class="item item-divider">
-				This is equivalent to consuming
+				This is equivalent to
 			</div>
 
 			<div class="item item-thumbnail-left">
 				<img src="./img/calorie.png">
 				<h2>Calories consumed today</h2>
-				<p>{{data.kcal}} Calories</p>
+				<p>{{data.kcal | setDecimal: 2}} Calories</p>
+				<!-- <h4>Energy needed for men/women a day</h4>
+				<p class="icon-have">
+					<span class="man-woman-icon"></span>
+					30.1 / 24.2
+				</p> -->
 			</div>
 
 			<div class="item item-thumbnail-left">
 				<img src="./img/hamburger.png">
 				<h2>Hamburgers</h2>
-				<p>{{data.hamburgers}}</p>
+				<p>{{data.hamburgers  | setDecimal: 2}}</p>
 			</div>
 
 			<div class="item item-thumbnail-left">
 				<img src="./img/pizza.jpg">
 				<h2>Pizza Pies</h2>
-				<p>{{data.pizzas}}</p>
+				<p>{{data.pizzas  | setDecimal: 2}}</p>
 			</div>
 
 			<div class="item item-thumbnail-left">
 				<img src="./img/soda.jpg">
 				<h2>Sodas</h2>
-				<p>{{data.sodas}}</p>
+				<p>{{data.sodas  | setDecimal: 2}}</p>
+			</div>
+
+			<div class="item item-thumbnail-left">
+				<img src="./img/person.png">
+				<h2>Persons living a day</h2>
+				<p>{{data.personsLivingADay  | setDecimal: 2}}</p>
 			</div>
 
 		</div>

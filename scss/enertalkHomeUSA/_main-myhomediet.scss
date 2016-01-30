@@ -11,8 +11,20 @@
 			h2 {
 				font-size: 16px;
 			}
+			.icon-have {
+				height: 40px;
+				line-height: 40px;
+			}
 			p {
 				font-size: 20px;
+
+				.man-woman-icon {
+					display: inline-block;
+					width: 48px;
+					height: 36px;
+					vertical-align: middle;
+					content: url('../img/man-woman.jpg');
+				}
 			}
 		}
 

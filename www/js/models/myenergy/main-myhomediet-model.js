@@ -38,11 +38,12 @@ angular.module('enertalkHomeUSA.services')
 				returnData.totalUsage += data.unitPeriodUsage;
 			});
 
-			returnData.kWh = (returnData.totalUsage / 1000000).toFixed(2);
-			returnData.kcal = (returnData.kWh * 860.421).toFixed(2);
-			returnData.hamburgers = (returnData.kcal / 279).toFixed(2);
-			returnData.pizzas = (returnData.kcal / 2269).toFixed(2);
-			returnData.sodas = (returnData.kcal / 140).toFixed(2);
+			returnData.kWh = returnData.totalUsage / 1000000;
+			returnData.kcal = returnData.kWh * 860.421;
+			returnData.hamburgers = returnData.kcal / 279;
+			returnData.pizzas = returnData.kcal / 2269;
+			returnData.sodas = returnData.kcal / 140;
+			returnData.personsLivingADay = returnData.kcal / 2000;
 			
 			return returnData;
 		}
