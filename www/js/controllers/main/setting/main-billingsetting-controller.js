@@ -61,6 +61,12 @@ angular.module('enertalkHomeUSA.controllers')
 							return '2nd';
 						} else if (i === 3) {
 							return '3rd';
+						} else if (i === 21) {
+							return '21st';
+						} else if (i === 22) {
+							return '22nd';
+						} else if (i === 23) {
+							return '23rd';
 						} else {
 							return i + 'th';
 						}

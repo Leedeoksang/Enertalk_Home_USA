@@ -1,12 +1,15 @@
 angular.module('enertalkHomeUSA.controllers')
 	
-	.controller('EnergyCalendarCtrl', function($scope, EnergyCalendarModel, Util, $ionicScrollDelegate) {
+	.controller('EnergyCalendarCtrl', function($scope, EnergyCalendarModel, Util, $ionicScrollDelegate, $ionicPopup) {
 		var currentYear,
 			currentMonth;
 
 		function init () {
 			var currentDate = new Date();
 			$scope.calendarType = 'goal';
+
+			$scope.unitSelected = '15min';
+			// for popup when clicking calendar elem
 
 			currentYear = currentDate.getFullYear();
 			currentMonth = currentDate.getMonth() + 1;
@@ -115,5 +118,104 @@ angular.module('enertalkHomeUSA.controllers')
 				return false;
 			}
 		};
+		$scope.showTheDay = function (timestamp, unit) {
+			if (timestamp) {
+				$scope.currentElemTimestamp = timestamp;
+				
+				if (!$scope.popup) {
+					$scope.popup = $ionicPopup.show({
+						cssClass: 'custom-popup',
+						templateUrl: './templates/main/day-usage.html',
+						scope: $scope
+					});
+				}
+				EnergyCalendarModel.getDayData($scope.currentElemTimestamp, unit).then(function (response) {
+					drawCircleChart(response.dataList);
+					$scope.dayTotalUsage = response.totalUsage / 1000000;
+				});
+			}
+		};
+
+		function drawCircleChart (dataList) {
+			var currentTime = new Date($scope.currentElemTimestamp),
+				barOptions = {
+				chart: {
+		            polar: true,
+		            renderTo: 'day-usage-chart'
+		        },
+		        title: {
+		            text: ''
+		        },
+		        pane: {
+		        	size: '70%'
+		        },
+		        xAxis: {
+		        	min: currentTime.getTime(),
+		        	max: (new Date(currentTime.getFullYear() , currentTime.getMonth(), currentTime.getDate() + 1)).getTime(),
+		       //      min: 0,
+	        // max: 24 * 36e5,
+		            title: {
+		                text: null
+		            },
+		            type: 'datetime',
+		            labels: {
+	            		enabled: true
+		            },
+		            tickWidth: 1,
+		            tickInterval: 3600 * 1000 * 6
+		        },
+		        yAxis: {
+		            min: 0,
+		            title: {
+		                text: ''
+		            },
+		            labels: {
+		            	enabled: false
+		            },
+		            gridLineWidth: 0,
+		            endOnTick: false
+		        },
+		        tooltip: {
+		       			enabled: false
+		        },
+		        plotOptions: {
+		            series: {
+		            	pointPlacement: 'on'
+		            },
+		            line: {
+		            	marker: {
+		            		enabled: false
+		            	}
+		            }
+		        },
+		        legend: {
+		            enabled: false
+		        },
+		        credits: {
+		            enabled: false
+		        },
+		        series: [
+		        {
+		        	name: 'today',
+		        	type: 'column',
+		        	data: dataList,
+		        	color: '#2D71E7'
+		        }]
+			};
+
+			Highcharts.setOptions({
+				global: {
+					useUTC: false
+				}
+			});
+
+			$scope.dayCircleChart = new Highcharts.chart(barOptions);
+		}
+
+		$scope.closePopup = function () {
+			$scope.popup.close();
+			$scope.popup = undefined;
+		};
+
 		init();
 	});

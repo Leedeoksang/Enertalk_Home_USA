@@ -53,7 +53,7 @@ angular.module('enertalkHomeUSA.services')
 					_this.setDailyPlan(_this.profile.maxLimitUsage);
 					_this.hourlyPlan = _this.dailyPlan / 24;
 					next(null, 'success');
-					_this.getMonthData();
+					// _this.getMonthData();
 					
 					Util.localStorage.setObject('User', {
 						accesstoken: _this.accesstoken,

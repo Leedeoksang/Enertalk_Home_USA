@@ -31,7 +31,7 @@ angular.module('enertalkHomeUSA.services')
 		this.getMeteringUsage = function (accesstoken, uuid) {
 			return $http({
 				method: 'GET',
-				url: APIURL.merteringUsage(uuid),
+				url: APIURL.meteringUsage(uuid),
 				headers: {
 					'Authorization': Util.encodeAuthHeader.bearer(accesstoken)
 				}

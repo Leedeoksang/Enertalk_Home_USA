@@ -1,0 +1,16 @@
+<div id="day-usage">
+	<div class="header">
+		<span class="figure">Total Usage:  {{dayTotalUsage | setDecimal: 2}} kWh</span>
+		<i class="ion-ios-close-empty close-button" ng-click="closePopup()"></i>
+	</div>
+	
+	<div class="header">
+		<span class="unit-button" ng-class="{'selected': unitSelected === '15min'}"ng-click="showTheDay(currentElemTimestamp, '15min'); unitSelected = '15min'">15min</span>
+		<span class="unit-button" ng-class="{'selected': unitSelected === 'hourly'}" ng-click="showTheDay(currentElemTimestamp, 'hourly'); unitSelected = 'hourly'">1hour</span>
+	</div>
+
+	<div id="day-usage-chart"></div>
+	<div id="nilm-detail">
+		NILM service is coming soon!
+	</div>
+</div>

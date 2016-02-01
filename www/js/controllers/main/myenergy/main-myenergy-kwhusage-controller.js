@@ -5,6 +5,10 @@ angular.module('enertalkHomeUSA.controllers')
 		$scope.dailyPlan = (User.dailyPlan / 1000000).toFixed(2);
 
 		function init () {
+			var now = new Date();
+			$scope.xAxis = {};
+			$scope.xAxis.min = (new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0)).getTime();
+			$scope.xAxis.max = (new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0)).getTime();
 			$scope.guideTexts = [
 				['Under Target. Doing great!', 'On Target. Doing OK', 'Sligthly Over Target. Watch your usage', 'Rapidly using your energy! Reduce your usage'],
 				['Getting close to your daily limit!', 'Exceeded your daily limit']
@@ -62,6 +66,8 @@ angular.module('enertalkHomeUSA.controllers')
 		        	size: '80%'
 		        },
 		        xAxis: {
+		        	min: $scope.xAxis.min,
+		        	max: $scope.xAxis.max,
 		            title: {
 		                text: null
 		            },
@@ -102,8 +108,7 @@ angular.module('enertalkHomeUSA.controllers')
 		        credits: {
 		            enabled: false
 		        },
-		        series: [
-		        {
+		        series: [{
 		        	name: 'today',
 		        	type: 'column',
 		        	data: $scope.dataList,
@@ -117,7 +122,7 @@ angular.module('enertalkHomeUSA.controllers')
 				}
 			});
 
-			$scope.chart = new Highcharts.chart(barOptions)
+			$scope.chart = new Highcharts.chart(barOptions);
 		}
 
 		init();

@@ -9987,6 +9987,51 @@ a.button {
         #usage-trends #usage-trends-detail #detail .detail-content .elem.plan-down {
           color: #02B14E; }
 
+.custom-popup .popup {
+  width: 80%;
+  height: 75%; }
+  .custom-popup .popup .popup-head {
+    height: 0px;
+    padding: 0px; }
+  .custom-popup .popup #day-usage {
+    width: 100%;
+    height: 100%; }
+  .custom-popup .popup .popup-body {
+    background-color: #FFFFFF;
+    padding-top: 12px;
+    padding-bottom: 12px; }
+    .custom-popup .popup .popup-body .header {
+      height: 36px;
+      line-height: 36px;
+      text-align: center;
+      position: relative; }
+      .custom-popup .popup .popup-body .header .close-button {
+        position: absolute;
+        right: 12px;
+        font-size: 30px; }
+      .custom-popup .popup .popup-body .header .unit-button {
+        border: 1px solid #878787;
+        padding: 4px 6px 4px;
+        margin-left: 16px;
+        margin-right: 16px; }
+        .custom-popup .popup .popup-body .header .unit-button.selected {
+          background-color: #878787;
+          color: #FFFFFF; }
+    .custom-popup .popup .popup-body #day-usage-chart {
+      position: absolute;
+      top: 96px;
+      left: 0;
+      width: 100%;
+      height: calc(80% - 96px); }
+    .custom-popup .popup .popup-body #nilm-detail {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 20%;
+      text-align: center;
+      background-color: #FFFFFF; }
+
 #energy-calendar .scroll {
   height: 100%; }
 
@@ -10087,6 +10132,9 @@ a.button {
       #energy-calendar #calendar-container .calendar .elem.empty {
         background-color: #878787;
         opacity: 0.3; }
+    #energy-calendar #calendar-container .calendar .elem:hover {
+      background-color: #878787;
+      color: #FFFFFF; }
 
 #energy-calendar .calendar-subcontents-container {
   /*height: calc(40% - 30px);*/
@@ -10343,6 +10391,9 @@ a.button {
 
 #info-setting .item-checkbox {
   border: 0px; }
+
+#info-setting .button-light {
+  border: 1px solid #000; }
 
 .spinner svg {
   position: absolute;

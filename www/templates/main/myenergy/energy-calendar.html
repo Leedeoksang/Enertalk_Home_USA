@@ -1,4 +1,4 @@
-<ion-view view-title="Monthly Overview" can-swipe-back="false">
+<ion-view view-title="Monthly Overview" can-swipe-back="false" class="test">
 	<ion-content id="energy-calendar">
 		
 		<div id="calendar-header">
@@ -18,7 +18,7 @@
 			
 			<div class="calendar" ng-show="calendarType === 'goal'">
 				<span class="day-elem" ng-repeat="dayOfWeek in dayOfWeekList" ng-bind="dayOfWeek"></span>
-				<span class="elem" ng-repeat="date in dateList track by $index">
+				<span class="elem" ng-repeat="date in dateList track by $index" ng-click="showTheDay(date.timestamp)">
 					<span class="elem-header">{{dayLabel(date.timestamp)}}</span>
 					<span class="elem-badge" ng-class="{'green': date.excessPlan === false}"></span>
 				</span>
@@ -26,7 +26,7 @@
 			
 			<div class="calendar" ng-show="calendarType === 'time'">
 				<span class="day-elem" ng-repeat="dayOfWeek in dayOfWeekList" ng-bind="dayOfWeek"></span>
-				<span class="elem" ng-repeat="date in dateList track by $index">
+				<span class="elem" ng-repeat="date in dateList track by $index" ng-click="showTheDay(date.timestamp)">
 					<span class="elem-header">{{dayLabel(date.timestamp)}}</span>
 					<span class="elem-badge" ng-class="{'night': date.activeTime === 'night', 'morning': date.activeTime === 'morning', 'afternoon': date.activeTime === 'afternoon', 'evening': date.activeTime === 'evening'}"></span>
 				</span>

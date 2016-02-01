@@ -1,9 +1,11 @@
 angular.module('enertalkHomeUSA.controllers')
 
-	.controller('UsageTrendsCtrl', function($scope, UsageTrendsModel, User, $timeout) {
+	.controller('UsageTrendsCtrl', function($scope, UsageTrendsModel, User, $filter, $q, Util, $timeout) {
 
 		function init () {
-			
+			var now = new Date(),
+				currentTime = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 0);
+
 			$scope.tabs = [{
 				label: 'day',
 				dataList: [],
@@ -22,24 +24,25 @@ angular.module('enertalkHomeUSA.controllers')
 				plan: User.dailyPlan,
 				model: UsageTrendsModel.getMonthData,
 				index: 2
-			}
-			// ,{
-			// 	label: 'year',
-			// 	dataList: [],
-			// 	plan: User.profile.maxLimitUsage,
-			// 	model: UsageTrendsModel.getYearData,
-			// 	index: 3
-			// }
-			];
+			},{
+				label: 'year',
+				dataList: [],
+				plan: User.profile.maxLimitUsage,
+				model: UsageTrendsModel.getYearData,
+				index: 3
+			}];
 
 			$scope.dailyPlan = User.dailyPlan;
 			$scope.currentTab = $scope.tabs[0];
-			$scope.detailDataList = angular.copy(User.monthData);
-			$scope.detailDataList.reverse();
-			$scope.currentTimestamp = $scope.detailDataList[0].timestamp;
-
-			UsageTrendsModel.getDayData($scope.currentTimestamp).then(function (response) {
-				$scope.currentTab.dataList = response;
+			$scope.currentTimestamp = currentTime.getTime();
+			
+			$q.all([
+				UsageTrendsModel.getDayData($scope.currentTimestamp),
+				UsageTrendsModel.getDetailContents()
+			]).then(function (responses) {
+				$scope.currentTab.dataList = responses[0];
+				$scope.detailDataList = responses[1];
+				$scope.detailDataList.reverse();
 				drawChart();
 			});
 		}
@@ -77,6 +80,8 @@ angular.module('enertalkHomeUSA.controllers')
 		          			return 3600 * 1000 * 24;
 		          		} else if (type === 'month') {
 		          			return 3600 * 1000 * 24;
+		          		} else if (type === 'year') {
+		          			return 3600 * 1000 * 24 * 30;
 		          		}
 		            })(),
 		            labels: {
@@ -109,9 +114,15 @@ angular.module('enertalkHomeUSA.controllers')
 	            					return '1st';
 	            				} else if (date.getDate() === 15) {
 	            					return '15th';
+	            				} else if (this.isLast) {
+	            					return date.getDate() + 'th';
 	            				}
 	            			} else if (type === 'year') {
-
+	            				var month = date.getMonth();
+	            				if (month === 0) {
+	            					month = 12;
+	            				}
+	            				return Util.getMonthName(month).substr(0,3);
 	            			}
 	            		}
 		            },
@@ -141,7 +152,23 @@ angular.module('enertalkHomeUSA.controllers')
                 	}]
 		        },
 		        tooltip: {
-		       			enabled: false
+	       			enabled: true,
+	       			// footerFormat: false,
+	       			formatter: function () {
+	       				var type = $scope.currentTab.label,
+	       					date = new Date(this.x),
+	       					xTooltip;
+	       				if (type === 'day') {
+	       					xTooltip = date.getHours() + ':00';
+	       				} else if (type === 'week' || type === 'month') {
+	       					xTooltip = (date.getMonth() + 1) + '.' + date.getDate();
+	       				} else if (type === 'year') {
+	       					xTooltip = '';/*Util.getMonthName(date.getMonth() + 1);*/
+	       				}
+	       				return xTooltip + '<br/>' + 'usage ' + $filter('setDecimal')(this.y / 1000000, 2) + 'kWh';
+	       			},
+	       			followPointer: true,
+	       			useHTML: true
 		        },
 		        plotOptions: {
 		            bar: {

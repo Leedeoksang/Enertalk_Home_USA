@@ -105,4 +105,47 @@ angular.module('enertalkHomeUSA.services')
 				oftenType: getMostActiveTime(activeZoneFrequency)
 			};
 		}
+
+		this.getDayData = function (timestamp, unit) {
+			var deferred = $q.defer(),
+				date = new Date(timestamp),
+				start = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 0),
+				end = new Date(date.getFullYear(), date.getMonth(), date.getDate() + 1, 0),
+				period = {
+					unit: unit || '15min',
+					start: start.getTime(),
+					end: end.getTime()
+				};
+
+			Api.getPeriodicUsage(User.accesstoken, User.uuid, period).then(function (response) {
+				if (response.status === 200) {
+					deferred.resolve(refineDayData(response.data, period.unit));
+				} else {
+					deferred.reject('error');
+				}
+			}).catch(function (error) {
+				deferred.reject(error);
+			});
+			return deferred.promise;
+		};
+
+		function refineDayData (dataList, unit) {
+			var returnData = {
+					totalUsage: 0,
+					dataList: []
+				},
+				date,
+				LENGTH = (unit === '15min' ? 96 : 24);
+
+			if (dataList.length) {
+				angular.forEach(dataList, function (data) {
+					returnData.dataList.push({
+						x: data.timestamp,
+						y: data.unitPeriodUsage
+					});
+					returnData.totalUsage += data.unitPeriodUsage;
+				});
+			}
+			return returnData;
+		}
 	});

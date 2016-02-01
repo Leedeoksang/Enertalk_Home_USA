@@ -40,17 +40,17 @@ angular.module('enertalkHomeUSA.services')
 					y: data.unitPeriodUsage
 				});
 			});
-			if (returnData.length) {
-				date = new Date(returnData[returnData.length - 1].x);
-				date.setMinutes(date.getMinutes() + 15);
-				while(returnData.length < 96) {
-					returnData.push({
-						x: date.getTime(),
-						y: 0
-					});
-					date.setMinutes(date.getMinutes() + 15);
-				}
-			}
+			// if (returnData.length) {
+			// 	date = new Date(returnData[returnData.length - 1].x);
+			// 	date.setMinutes(date.getMinutes() + 15);
+			// 	while(returnData.length < 96) {
+			// 		returnData.push({
+			// 			x: date.getTime(),
+			// 			y: 0
+			// 		});
+			// 		date.setMinutes(date.getMinutes() + 15);
+			// 	}
+			// }
 			return returnData;
 		}
 

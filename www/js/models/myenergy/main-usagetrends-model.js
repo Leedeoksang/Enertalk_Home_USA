@@ -1,6 +1,32 @@
 angular.module('enertalkHomeUSA.services')
 
-	.service('UsageTrendsModel', function ($q, Api, User) {
+	.service('UsageTrendsModel', function ($q, Api, User, Util) {
+
+		this.getDetailContents = function () {
+			var deferred = $q.defer(),
+				now = new Date(),
+				start = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 60),
+				end = new Date(now.getFullYear(), now.getMonth() + 1, 1),
+				period = {
+					unit: 'hourly',
+					start: start.getTime(),
+					end: now.getTime()
+				};
+
+			Api.getPeriodicUsage(User.accesstoken, User.uuid, period).then(function (response) {
+				if (response.status === 200) {
+					var returnData;
+					returnData = Util.refineMonthData(response.data);
+					deferred.resolve(returnData);
+				} else {
+					deferred.reject('error');
+				}
+			}).catch(function (error) {
+				deferred.reject(error);
+			});
+
+			return deferred.promise;
+		};
 
 		this.getDayData = function (timestamp) {
 			var deferred = $q.defer(),
@@ -94,7 +120,7 @@ angular.module('enertalkHomeUSA.services')
 				unit: 'monthly'
 			},
 			now = new Date(),
-			start = new Date(now.getFullYear(), 1, 1);
+			start = new Date(now.getFullYear(), now.getMonth() - 12, 1);
 
 			period.start = start.getTime();
 			period.end = now.getTime();
@@ -102,7 +128,7 @@ angular.module('enertalkHomeUSA.services')
 			Api.getPeriodicUsage(User.accesstoken, User.uuid, period)
 			.then(function (response) {
 				if (response.status === 200) {
-					var dataList = refineData(response.data);
+					var dataList = refineData(response.data, 'year');
 					deferred.resolve(dataList);
 				} else {
 					deferred.reject('');
@@ -139,9 +165,7 @@ angular.module('enertalkHomeUSA.services')
 						
 					}
 				}
-			}
-
-			if (type === 'week') {
+			} else if (type === 'week') {
 				angular.forEach(dataList, function (data) {
 					returnData.push({
 						x: data.timestamp,
@@ -159,9 +183,7 @@ angular.module('enertalkHomeUSA.services')
 						tempDate.setDate(tempDate.getDate() + 1);
 					}
 				}
-			}
-
-			if (type === 'month') {
+			} else if (type === 'month') {
 				angular.forEach(dataList, function (data) {
 					returnData.push({
 						x: data.timestamp,
@@ -179,6 +201,13 @@ angular.module('enertalkHomeUSA.services')
 						tempDate.setDate(tempDate.getDate() + 1);
 					}
 				}
+			} else if (type === 'year') {
+				angular.forEach(dataList, function (data) {
+					returnData.push({
+						x: data.timestamp,
+						y: data.unitPeriodUsage
+					});
+				});
 			}
 
 			return returnData;

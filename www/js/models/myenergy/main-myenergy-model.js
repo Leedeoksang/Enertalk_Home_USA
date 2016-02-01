@@ -21,12 +21,13 @@ angular.module('enertalkHomeUSA.services')
 
 			$q.all([
 				Api.getPeriodicUsage(User.accesstoken, User.uuid, period1),
-				Api.getPeriodicUsage(User.accesstoken, User.uuid, period2)
+				// Api.getPeriodicUsage(User.accesstoken, User.uuid, period2)
+				Api.getMeteringUsage(User.accesstoken, User.uuid)
 			]).then(function (responses) {
 				var returnData;
 				if (responses[0].status === 200 && responses[1].status === 200) {
 					returnData = refineData(responses[0].data);
-					returnData.monthBill = refineForBill(responses[1].data);
+					returnData.monthBill = Util.bill.getBill(responses[1].data.meteringPeriodUsage / 1000000) || 0;
 					deferred.resolve(returnData);
 				} else {
 					deferred.reject('error');
@@ -47,19 +48,9 @@ angular.module('enertalkHomeUSA.services')
 			});
 
 			returnData.todayUsage = totalUsage / 1000000;
-			returnData.todayBill = Util.bill.getBill(returnData.todayUsage);
+			returnData.todayBill = Util.bill.getBill(returnData.todayUsage) || 0;
 			returnData.co2Emitted = Util.conversion.co2(returnData.todayUsage, 'k');
 			returnData.treeNeeded = Util.conversion.tree(returnData.todayUsage, 'k');
 			return returnData;
-		}
-
-		function refineForBill (dataList) {
-			var totalUsage = 0,
-				bill;
-			angular.forEach(dataList, function (data) {
-				totalUsage += data.unitPeriodUsage;
-			});
-			bill = Util.bill.getBill(totalUsage / 1000000);
-			return bill ? bill : 0;
 		}
 	});

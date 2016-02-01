@@ -7,7 +7,8 @@ angular.module('enertalkHomeUSA.controllers')
 				popup = $ionicPopup.show({
 					title: 'For better neighbor comparison, please share a little bit about your home.',
 					buttons: [{
-						text: 'ok'
+						text: 'ok',
+						type: 'button-positive'
 					}]
 				});
 

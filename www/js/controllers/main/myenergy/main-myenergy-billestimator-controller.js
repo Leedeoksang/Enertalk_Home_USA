@@ -42,9 +42,10 @@ angular.module('enertalkHomeUSA.controllers')
 
 		function needDetailSetting () {
 			var popup = $ionicPopup.show({
-				title: 'Need detail setting',
+				title: 'Need billing info. Go to settings.',
 				buttons: [{
 					text: 'go to setting',
+					type: 'button-positive',
 					onTap: function () {
 						$timeout(function () {
 							$state.go('main.billing-setting');

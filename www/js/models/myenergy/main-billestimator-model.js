@@ -22,7 +22,8 @@ angular.module('enertalkHomeUSA.services')
 			period2.end = end2.getTime();
 
 			$q.all([
-				Api.getPeriodicUsage(User.accesstoken, User.uuid, period1),
+				// Api.getPeriodicUsage(User.accesstoken, User.uuid, period1),
+				Api.getMeteringUsage(User.accesstoken, User.uuid),
 				Api.getMeteringUsages(User.accesstoken, User.uuid, period2),
 				Api.getForecastUsage(User.accesstoken, User.uuid)
 				]).then(function (responses) {
@@ -43,17 +44,17 @@ angular.module('enertalkHomeUSA.services')
 			return deferred.promise;
 		};
 
-		function refineData (currentMonthDataList, previousMonthData, forecastData) {
+		function refineData (currentMonthData, previousMonthData, forecastData) {
 			var currentMonth = {
-					totalUsage: 0
+					totalUsage: currentMonthData.meteringPeriodUsage
 				},
 				currentUsage = 0,
 				forecastUsage = forecastData.meteringUsage,
 				previousMonths = previousMonthData.usages;
 
-			angular.forEach(currentMonthDataList, function (currentMonthData) {
-				currentMonth.totalUsage += currentMonthData.unitPeriodUsage;
-			});
+			// angular.forEach(currentMonthDataList, function (currentMonthData) {
+			// 	currentMonth.totalUsage += currentMonthData.unitPeriodUsage;
+			// });
 
 			return {
 				currentMonth: currentMonth,

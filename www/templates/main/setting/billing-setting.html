@@ -11,7 +11,7 @@
 
 		<label class="item item-input item-select">
 		    <div class="input-label">
-		    	whici state do you live?
+		    	which state do you live in?
 		    </div>
 		    <select ng-options="state as state.label for state in stateList track by state.id" ng-model="billingInfo.state">
 		    </select>
@@ -19,7 +19,7 @@
 
 		<label class="item item-input item-select">
 		    <div class="input-label">
-		    	which city do you live?
+		    	which city do you live in?
 		    </div>
 		    <select ng-options="city as city.label for city in billingInfo.state.cityList track by city.id" ng-model="billingInfo.city">
 		    </select>
