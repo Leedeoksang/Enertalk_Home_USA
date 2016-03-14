@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- <<<<<<< HEAD -->
 <widget id="com.ionicframework.usapocapplication647809" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<!-- =======
+<widget id="com.ionicframework.usapoc647809" version="0.1.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0"> -->
+<!-- >>>>>>> master -->
   <name>USA_poc_application</name>
   <description>
         An Ionic Framework and Cordova project.
@@ -51,4 +55,8 @@
     <splash src="resources/ios/splash/Default@2x~iphone.png" height="960" width="640"/>
     <splash src="resources/ios/splash/Default~iphone.png" height="480" width="320"/>
   </platform>
+<!-- <<<<<<< HEAD
 </widget>
+======= -->
+</widget>
+<!-- >>>>>>> master -->

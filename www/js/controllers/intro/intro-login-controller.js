@@ -19,7 +19,7 @@ angular.module('enertalkHomeUSA.controllers')
 						$scope.login();
 					}
 				}
-			
+
 			// for network check
 
 			// document.addEventListener("deviceready", function () {
@@ -62,7 +62,7 @@ angular.module('enertalkHomeUSA.controllers')
 				} else {
 					credentials.phone = $scope.credentials.id;
 				}
-				
+
 				credentials.password = $scope.credentials.password;
 				credentials.app_version = 'web';
 
