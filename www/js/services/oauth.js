@@ -16,6 +16,8 @@ angular.module('enertalkHomeUSA.services')
 			});
 		};
 
+
+
 		this.verifyToken = function (accesstoken) {
 			return $http({
 				method: 'GET',
