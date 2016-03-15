@@ -24,7 +24,7 @@
     "org.apache.cordova.console",
 "cordova-plugin-device-motion",
 "org.pbernasconi.progressindicator",
-"cordova-plugin-inappbrowser 1.2.0"
+"cordova-plugin-inappbrowser"
   ],
   "cordovaPlatforms": [
     "ios"
