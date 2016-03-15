@@ -21,7 +21,10 @@
     "cordova-plugin-whitelist",
     "cordova-plugin-splashscreen",
     "com.ionic.keyboard",
-    "org.apache.cordova.console"
+    "org.apache.cordova.console",
+"cordova-plugin-device-motion",
+"org.pbernasconi.progressindicator",
+"cordova-plugin-inappbrowser 1.2.0"
   ],
   "cordovaPlatforms": [
     "ios"
