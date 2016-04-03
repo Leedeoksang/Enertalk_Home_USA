@@ -64,18 +64,19 @@ angular.module('enertalkHomeUSA.services')
 
     this.bill = {
       getBill: function (kWh) {
-        var bill = 0,
-          state = _this.localStorage.getObject('billingInfo').state;
+        // var bill = 0,
+        //   state = _this.localStorage.getObject('billingInfo').state;
         
-        if (!state) {
-          return undefined;
-        } else if (state.label === 'CA') {
-          bill = _this.bill.billCalculation1(kWh);
-        } else if (state.label == 'MA') {
-          bill = _this.bill.billCalculation2(kWh);
-        } 
+        // if (!state) {
+        //   return undefined;
+        // } else if (state.label === 'CA') {
+        //   bill = _this.bill.billCalculation1(kWh);
+        // } else if (state.label == 'MA') {
+        //   bill = _this.bill.billCalculation2(kWh);
+        // }         
+        // return bill;
 
-        return bill;
+        return 6.43 + (0.06681 + 0.00227 + 0.02526 + 0.00250 + 0.00050) * kWh;
       },
       getBillRate: function (kWh) {
         var rate = '',

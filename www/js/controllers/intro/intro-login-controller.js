@@ -1,12 +1,12 @@
 angular.module('enertalkHomeUSA.controllers')
 
-	.controller('IntroLoginCtrl', function ($scope, $state, User, Util, $timeout, $cordovaNetwork, $ionicPopup, UIHub) {
+	.controller('IntroLoginCtrl', function ($scope, $state, User, Util, $interval, $timeout, $cordovaNetwork, $ionicPopup, UIHub) {
 
 		$scope.credentials = {
 			id: undefined,
 			password: undefined
 		};
-
+		
 		function init () {
 			var credentials,
 				setting = Util.localStorage.getObject('setting');

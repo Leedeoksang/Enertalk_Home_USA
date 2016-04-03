@@ -7,7 +7,7 @@ angular.module('enertalkHomeUSA.controllers')
 				meteringday = {
 					id: User.profile.meteringday
 				};
-			
+
 			$scope.stateList = [{
 				id: 1,
 				label: 'CA',
@@ -17,6 +17,11 @@ angular.module('enertalkHomeUSA.controllers')
 				label: 'MA',
 				cityList: [{id: 1, label: 'Boston'}]
 			}];
+
+			$scope.cityList = [{id: 1, label: 'Boston'}];
+			billingInfo.city = {id: 1, label: 'Boston'};
+			// for requirement of cho
+
 			$scope.meteringdayList = [];
 			$scope.ratePlanList = [];
 			$scope.meteringdayList = getMeteringdayList();
